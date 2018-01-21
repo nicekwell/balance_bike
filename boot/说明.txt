@@ -1,0 +1,1 @@
+cortexm3_macro.s 和 STM32f10x_vector.s 两者为STM32在Keil MDK环境下的启动文件，是每个STM32工程必需的。
