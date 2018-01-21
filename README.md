@@ -3,7 +3,7 @@
 
 这是一个自平衡自行车，用买来的自行车模型改装。
 
-![balance_bike.jpg](https://code.aliyun.com/nicekwell/balance_bike/raw/master/balance_bike.jpg)
+![balance_bike.jpg](https://github.com/nicekwell/balance_bike/raw/master/balance_bike.jpg)
 
 视频:   
 <https://www.youtube.com/watch?v=wNYvMlPewzI>  
@@ -13,6 +13,15 @@
 加入了舵机，控制转向。
 
 通过控制转向使自行车能自己平衡前进。
+
+详细原理和教程请看：<http://nicekwell.net/pages/diy.html>
+
+# 广告
+
+老婆做毕业设计，给我下了死命令，一定要找300个程序员研究一下，请各位同行做个调查问卷，可扫描下面二维码或者直接点击此链接：<https://www.wjx.cn/jq/17710478.aspx>，多谢！
+
+![ad.jpg](https://github.com/nicekwell/balance_bike/raw/master/images/ad.jpg)
+
 
 # 硬件和引脚
 
