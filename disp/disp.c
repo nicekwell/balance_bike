@@ -6,39 +6,39 @@ void disp_clean(void)
 {
     printf("\033[2J");
 }
-void disp_clean_line(void)      //æ¸…é™¤å½“å‰è¡Œï¼Œå¹¶å¤ä½å…‰æ ‡åˆ°è¡Œé¦–
+void disp_clean_line(void)      //Çå³ıµ±Ç°ĞĞ£¬²¢¸´Î»¹â±êµ½ĞĞÊ×
 {
     printf("\33[2K\r");
 }
-void disp_cursor_reset(void)        //å¤ä½å…‰æ ‡ä½ç½®ï¼Œå›åˆ°å·¦ä¸Šè§’
+void disp_cursor_reset(void)        //¸´Î»¹â±êÎ»ÖÃ£¬»Øµ½×óÉÏ½Ç
 {
     printf("\033[H");
 }
-void disp_gotoxy(int x, int y)  //è·³è½¬åˆ°yè¡Œxåˆ—
+void disp_gotoxy(int x, int y)  //Ìø×ªµ½yĞĞxÁĞ
 {
     printf("\033[%d;%dH", y, x);
 }
-void disp_cursor_up(int y)      //ä¸Šç§»xè¡Œ
+void disp_cursor_up(int y)      //ÉÏÒÆxĞĞ
 {
     printf("\033[%dA", y);
 }
-void disp_cursor_down(int y)    //ä¸‹ç§»yè¡Œ
+void disp_cursor_down(int y)    //ÏÂÒÆyĞĞ
 {
     printf("\033[%dB", y);
 }
-void disp_cursor_left(int x)    //å·¦ç§»xåˆ—
+void disp_cursor_left(int x)    //×óÒÆxÁĞ
 {
     printf("\033[%dD", x);
 }
-void disp_cursor_right(int x)   //å³ç§»xåˆ—
+void disp_cursor_right(int x)   //ÓÒÒÆxÁĞ
 {
     printf("\033[%dC", x);
 }
-void disp_cursor_hide(void)     //éšè—å…‰æ ‡
+void disp_cursor_hide(void)     //Òş²Ø¹â±ê
 {
     printf("\033[?25l");
 }
-void disp_cursor_show(void)     //æ˜¾ç¤ºå…‰æ ‡
+void disp_cursor_show(void)     //ÏÔÊ¾¹â±ê
 {
     printf("\033[?25h");
 }

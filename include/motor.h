@@ -3,6 +3,6 @@
 #include <stm32f10x_lib.h>
 
 void motor_init(void);
-void motor_setzkb(int zkb);      //è®¾ç½®å ç©ºæ¯”ï¼ŒèŒƒå›´æ˜¯0~100
+void motor_setzkb(int zkb);      //ÉèÖÃÕ¼¿Õ±È£¬·¶Î§ÊÇ0~100
 
 #endif

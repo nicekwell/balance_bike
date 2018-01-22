@@ -1,12 +1,12 @@
 /*
-  èˆµæœºé‚£è¾¹æä¾›çš„æ¥å£æ˜¯ angle_setangle()ï¼Œä¼ å…¥è§’åº¦ï¼šæ­£å‰æ–¹æ˜¯0ï¼Œå‘å³æ˜¯æ­£ï¼Œå‘å·¦æ˜¯è´Ÿã€‚
-  åæ ‡ç³»ï¼šè®¤ä¸ºæ°´å¹³å‘å³æ–¹å‘æ˜¯xè½´æ­£æ–¹å‘ï¼Œç«–ç›´å‘ä¸Šæ–¹å‘æ˜¯yè½´æ­£æ–¹å‘ã€‚
-  è‡ªè¡Œè½¦è§’åº¦ï¼šç«–ç›´æ–¹å‘æ˜¯0åº¦ï¼Œå‘å³æ˜¯æ­£ï¼Œå‘å·¦æ˜¯è´Ÿã€‚
-  é™€èºä»ªæµ‹å‡ºçš„è§’é€Ÿåº¦ä¹Ÿæ˜¯ï¼Œå‘å³æ—‹è½¬ä¸ºæ­£ï¼Œå‘å·¦æ—‹è½¬ä¸ºè´Ÿã€‚
+  ¶æ»úÄÇ±ßÌá¹©µÄ½Ó¿ÚÊÇ angle_setangle()£¬´«Èë½Ç¶È£ºÕıÇ°·½ÊÇ0£¬ÏòÓÒÊÇÕı£¬Ïò×óÊÇ¸º¡£
+  ×ø±êÏµ£ºÈÏÎªË®Æ½ÏòÓÒ·½ÏòÊÇxÖáÕı·½Ïò£¬ÊúÖ±ÏòÉÏ·½ÏòÊÇyÖáÕı·½Ïò¡£
+  ×ÔĞĞ³µ½Ç¶È£ºÊúÖ±·½ÏòÊÇ0¶È£¬ÏòÓÒÊÇÕı£¬Ïò×óÊÇ¸º¡£
+  ÍÓÂİÒÇ²â³öµÄ½ÇËÙ¶ÈÒ²ÊÇ£¬ÏòÓÒĞı×ªÎªÕı£¬Ïò×óĞı×ªÎª¸º¡£
  */
 
 #include <math.h>
-/**************************** ä¼ æ„Ÿå™¨éƒ¨åˆ† *************************/
+/**************************** ´«¸ĞÆ÷²¿·Ö *************************/
 typedef struct {
     double ax_cali;
     double ay_cali;
@@ -16,7 +16,7 @@ typedef struct {
     double gz_cali;
 } sensor_raw_data_cali_t;
 sensor_raw_data_cali_t sensor_raw_data_cali;
-typedef struct {        //è¿™æ˜¯åŸå§‹æ•°æ®ï¼Œæ²¡æœ‰ç»è¿‡æ˜ å°„ï¼Œä½†ç»è¿‡äº†æ ¡å‡†
+typedef struct {        //ÕâÊÇÔ­Ê¼Êı¾İ£¬Ã»ÓĞ¾­¹ıÓ³Éä£¬µ«¾­¹ıÁËĞ£×¼
     double ax;
     double ay;
     double az;
@@ -25,7 +25,7 @@ typedef struct {        //è¿™æ˜¯åŸå§‹æ•°æ®ï¼Œæ²¡æœ‰ç»è¿‡æ˜ å°„ï¼Œä½†ç»è¿‡äº†
     double gz;
 } sensor_raw_data_t;
 sensor_raw_data_t sensor_raw_data;
-void get_sensor_data()  //è¯»å–æ•°æ®å¹¶æ ¡å‡†ï¼Œæ•°æ®ä¿å­˜åœ¨sensor_raw_dataé‡Œ
+void get_sensor_data()  //¶ÁÈ¡Êı¾İ²¢Ğ£×¼£¬Êı¾İ±£´æÔÚsensor_raw_dataÀï
 {
     sensor_raw_data.ax = -mpu6050_getAccelX() + sensor_raw_data_cali.ax_cali;
 //    sensor_raw_data.ay = -mpu6050_getAccelY() + sensor_raw_data_cali.ay_cali;
@@ -34,58 +34,58 @@ void get_sensor_data()  //è¯»å–æ•°æ®å¹¶æ ¡å‡†ï¼Œæ•°æ®ä¿å­˜åœ¨sensor_raw_data
     sensor_raw_data.gy = mpu6050_getGyroY() + sensor_raw_data_cali.gy_cali;
     sensor_raw_data.gz = mpu6050_getGyroZ() + sensor_raw_data_cali.gz_cali;
 }
-/*************************** å§¿æ€éƒ¨åˆ† **********************/
+/*************************** ×ËÌ¬²¿·Ö **********************/
 #define PI 3.141592654
 typedef struct {
-    double ax;  //æ˜ å°„åçš„axï¼Œæ°´å¹³å‘å³æ˜¯æ­£æ–¹å‘
-    double ay;  //æ˜ å°„åçš„ayï¼Œç«–ç›´å‘ä¸Šæ˜¯æ­£æ–¹å‘
-    double palstance;   //æ˜ å°„åçš„è§’é€Ÿåº¦ï¼Œå‘å³æ˜¯æ­£ï¼Œå‘å·¦æ˜¯è´Ÿ
+    double ax;  //Ó³ÉäºóµÄax£¬Ë®Æ½ÏòÓÒÊÇÕı·½Ïò
+    double ay;  //Ó³ÉäºóµÄay£¬ÊúÖ±ÏòÉÏÊÇÕı·½Ïò
+    double palstance;   //Ó³ÉäºóµÄ½ÇËÙ¶È£¬ÏòÓÒÊÇÕı£¬Ïò×óÊÇ¸º
 
-    //è§’åº¦ï¼Œç«–ç›´å‘ä¸Šæ˜¯0ï¼Œå‘å³æ˜¯æ­£ï¼Œå‘å·¦æ˜¯è´Ÿ
-    double angle_a;     //åŠ é€Ÿåº¦è®¡ç®—å‡ºçš„è§’åº¦
-    double angle_g;     //è§’é€Ÿåº¦å åŠ è®¡ç®—å‡ºçš„è§’åº¦
-    double angle;       //äº’è¡¥å¹³è¡¡æ»¤æ³¢åå¾—åˆ°çš„è§’åº¦
+    //½Ç¶È£¬ÊúÖ±ÏòÉÏÊÇ0£¬ÏòÓÒÊÇÕı£¬Ïò×óÊÇ¸º
+    double angle_a;     //¼ÓËÙ¶È¼ÆËã³öµÄ½Ç¶È
+    double angle_g;     //½ÇËÙ¶Èµş¼Ó¼ÆËã³öµÄ½Ç¶È
+    double angle;       //»¥²¹Æ½ºâÂË²¨ºóµÃµ½µÄ½Ç¶È
 
-    /* å°è½¦å€¾è§’
-       ä¸Šé¢ç®—å‡ºæ¥çš„æ˜¯å§¿æ€ä¼ æ„Ÿå™¨ç›¸å¯¹äºé‡åŠ›ç«–ç›´æ–¹å‘çš„è§’åº¦ï¼Œè€Œå°è½¦ç”±äºé‡å¿ƒåå·®ï¼Œå¹³è¡¡ä½ç½®ä¸ä¸€å®šæ˜¯ç«–ç›´å‘ä¸Šæ–¹å‘ã€‚
-       è¿™é‡Œå åŠ é‡å¿ƒæ‰€åœ¨è§’åº¦ï¼Œå¾—å‡ºå°è½¦åç¦»é‡å¿ƒçš„è§’åº¦ã€‚
+    /* Ğ¡³µÇã½Ç
+       ÉÏÃæËã³öÀ´µÄÊÇ×ËÌ¬´«¸ĞÆ÷Ïà¶ÔÓÚÖØÁ¦ÊúÖ±·½ÏòµÄ½Ç¶È£¬¶øĞ¡³µÓÉÓÚÖØĞÄÆ«²î£¬Æ½ºâÎ»ÖÃ²»Ò»¶¨ÊÇÊúÖ±ÏòÉÏ·½Ïò¡£
+       ÕâÀïµş¼ÓÖØĞÄËùÔÚ½Ç¶È£¬µÃ³öĞ¡³µÆ«ÀëÖØĞÄµÄ½Ç¶È¡£
      */
-    double angle_core;  //é‡å¿ƒæ‰€åœ¨è§’åº¦ï¼Œå¯¹äºä¸€ä¸ªå°è½¦è€Œè¨€æ˜¯å›ºå®šå€¼
-    double angle_car;   //åç¦»é‡å¿ƒçš„è§’åº¦ï¼Œè¿™æ‰æ˜¯æˆ‘ä»¬è¿›è¡ŒPIDç®—æ³•æ—¶çš„åå·®è§’
+    double angle_core;  //ÖØĞÄËùÔÚ½Ç¶È£¬¶ÔÓÚÒ»¸öĞ¡³µ¶øÑÔÊÇ¹Ì¶¨Öµ
+    double angle_car;   //Æ«ÀëÖØĞÄµÄ½Ç¶È£¬Õâ²ÅÊÇÎÒÃÇ½øĞĞPIDËã·¨Ê±µÄÆ«²î½Ç
 } attitude_data_t;
 attitude_data_t attitude_data;
 void attitude_1()
 {
     static double angle_last;
     attitude_data.ax = -sensor_raw_data.ax;
-    attitude_data.ay = sensor_raw_data.az/0.97; //ç”±äºå§¿æ€ä¼ æ„Ÿå™¨å®‰è£…åå·®ï¼Œç”¨0.97è¿™ä¸ªç³»æ•°å’Œè¿‘ä¼¼æ¶ˆé™¤åå·®
-    attitude_data.palstance = -sensor_raw_data.gy/0.97 - sensor_raw_data.gz*0.25;  //å•ä½æ˜¯åº¦æ¯ç§’
-    //åŠ é€Ÿåº¦è®¡ç®—è§’åº¦
-    attitude_data.angle_a = -atan(attitude_data.ax/attitude_data.ay)*180/PI;    //å¾—åˆ°çš„å•ä½æ˜¯è§’åº¦æ¯ç§’
-    //é™€èºä»ªè®¡ç®—è§’åº¦
+    attitude_data.ay = sensor_raw_data.az/0.97; //ÓÉÓÚ×ËÌ¬´«¸ĞÆ÷°²×°Æ«²î£¬ÓÃ0.97Õâ¸öÏµÊıºÍ½üËÆÏû³ıÆ«²î
+    attitude_data.palstance = -sensor_raw_data.gy/0.97 - sensor_raw_data.gz*0.25;  //µ¥Î»ÊÇ¶ÈÃ¿Ãë
+    //¼ÓËÙ¶È¼ÆËã½Ç¶È
+    attitude_data.angle_a = -atan(attitude_data.ax/attitude_data.ay)*180/PI;    //µÃµ½µÄµ¥Î»ÊÇ½Ç¶ÈÃ¿Ãë
+    //ÍÓÂİÒÇ¼ÆËã½Ç¶È
     attitude_data.angle_g = angle_last + attitude_data.palstance*0.02;
-    //äº’è¡¥å¹³è¡¡æ»¤æ³¢
-#define A_GYRO 0.99 //é™€èºä»ªæ‰€å çš„æ¯”ä¾‹
+    //»¥²¹Æ½ºâÂË²¨
+#define A_GYRO 0.99 //ÍÓÂİÒÇËùÕ¼µÄ±ÈÀı
     attitude_data.angle = A_GYRO*attitude_data.angle_g + (1-A_GYRO)*attitude_data.angle_a;
     angle_last = attitude_data.angle;
 
-    //è®¡ç®—åç¦»å°è½¦é‡å¿ƒçš„è§’åº¦
+    //¼ÆËãÆ«ÀëĞ¡³µÖØĞÄµÄ½Ç¶È
     attitude_data.angle_car = attitude_data.angle - attitude_data.angle_core;
 }
-/*************************** å¹³è¡¡éƒ¨åˆ† ***************************/
-#define BALANCE_TYPE 1  //1-ç‰©ç†æ¨¡å‹è¾ƒä¸ºè¯¦ç»†ã€‚2-æ²¡æœ‰è¯¦ç»†çš„ç‰©ç†æ¨¡å‹ï¼Œè§’åº¦ç›´æ¥å¯¹åº”åŠ é€Ÿåº¦ã€‚
+/*************************** Æ½ºâ²¿·Ö ***************************/
+#define BALANCE_TYPE 1  //1-ÎïÀíÄ£ĞÍ½ÏÎªÏêÏ¸¡£2-Ã»ÓĞÏêÏ¸µÄÎïÀíÄ£ĞÍ£¬½Ç¶ÈÖ±½Ó¶ÔÓ¦¼ÓËÙ¶È¡£
 
 #if BALANCE_TYPE == 1
 typedef struct {
-    double balance_angle;       //ç›®æ ‡å¹³è¡¡è§’åº¦
+    double balance_angle;       //Ä¿±êÆ½ºâ½Ç¶È
     double kp, kd;
-    double L, Lm, V;    //Læ˜¯å‰åè½®è§¦åº•ç‚¹è·ç¦»ï¼ŒLmæ˜¯é‡å¿ƒè·ç¦»åè½®çš„è·ç¦»ï¼ŒVæ˜¯å‰è¿›é€Ÿåº¦ã€‚éƒ½æ˜¯å›½é™…å•ä½
-    double d_angle;     //è§’åº¦åå·®ï¼Œç›®æ ‡è§’åº¦-å½“å‰è§’åº¦ï¼Œå‘å³å€¾æ–œåå·®ä¸ºæ­£ï¼Œå‘å·¦å€¾æ–œåå·®ä¸ºè´Ÿ
-    double ax;          //å€’ç«‹æ‘†æ¨ªå‘åŠ é€Ÿåº¦ï¼Œå‘å³æ˜¯æ­£ï¼Œå‘å·¦æ˜¯è´Ÿ
-    double angle;       //æ–¹å‘ç›˜çš„è§’åº¦ï¼Œæ­£å‰æ–¹æ˜¯0ï¼Œå‘å³æ˜¯æ­£ï¼Œå‘å·¦æ˜¯è´Ÿ
+    double L, Lm, V;    //LÊÇÇ°ºóÂÖ´¥µ×µã¾àÀë£¬LmÊÇÖØĞÄ¾àÀëºóÂÖµÄ¾àÀë£¬VÊÇÇ°½øËÙ¶È¡£¶¼ÊÇ¹ú¼Êµ¥Î»
+    double d_angle;     //½Ç¶ÈÆ«²î£¬Ä¿±ê½Ç¶È-µ±Ç°½Ç¶È£¬ÏòÓÒÇãĞ±Æ«²îÎªÕı£¬Ïò×óÇãĞ±Æ«²îÎª¸º
+    double ax;          //µ¹Á¢°ÚºáÏò¼ÓËÙ¶È£¬ÏòÓÒÊÇÕı£¬Ïò×óÊÇ¸º
+    double angle;       //·½ÏòÅÌµÄ½Ç¶È£¬ÕıÇ°·½ÊÇ0£¬ÏòÓÒÊÇÕı£¬Ïò×óÊÇ¸º
 } balance_data_t;
 balance_data_t balance_data;
-#define limit_angle     40      //é™å¹…å¤§å°ï¼Œå•ä½æ˜¯è§’åº¦
+#define limit_angle     40      //ÏŞ·ù´óĞ¡£¬µ¥Î»ÊÇ½Ç¶È
 void balance_1()
 {
     double temp;
@@ -102,14 +102,14 @@ void balance_1()
 }
 #elif BALANCE_TYPE == 2
 typedef struct {
-    double balance_angle;       //ç›®æ ‡å¹³è¡¡è§’åº¦
+    double balance_angle;       //Ä¿±êÆ½ºâ½Ç¶È
     double kp, kd;
-    double d_angle;     //è§’åº¦åå·®ï¼Œç›®æ ‡è§’åº¦-å½“å‰è§’åº¦ï¼Œå‘å³å€¾æ–œåå·®ä¸ºæ­£ï¼Œå‘å·¦å€¾æ–œåå·®ä¸ºè´Ÿ
-    double ax;          //å€’ç«‹æ‘†æ¨ªå‘åŠ é€Ÿåº¦ï¼Œå‘å³æ˜¯æ­£ï¼Œå‘å·¦æ˜¯è´Ÿ
-    double angle;       //æ–¹å‘ç›˜çš„è§’åº¦ï¼Œæ­£å‰æ–¹æ˜¯0ï¼Œå‘å³æ˜¯æ­£ï¼Œå‘å·¦æ˜¯è´Ÿ
+    double d_angle;     //½Ç¶ÈÆ«²î£¬Ä¿±ê½Ç¶È-µ±Ç°½Ç¶È£¬ÏòÓÒÇãĞ±Æ«²îÎªÕı£¬Ïò×óÇãĞ±Æ«²îÎª¸º
+    double ax;          //µ¹Á¢°ÚºáÏò¼ÓËÙ¶È£¬ÏòÓÒÊÇÕı£¬Ïò×óÊÇ¸º
+    double angle;       //·½ÏòÅÌµÄ½Ç¶È£¬ÕıÇ°·½ÊÇ0£¬ÏòÓÒÊÇÕı£¬Ïò×óÊÇ¸º
 } balance_data_t;
 balance_data_t balance_data;
-#define limit_angle     40      //é™å¹…å¤§å°ï¼Œå•ä½æ˜¯è§’åº¦
+#define limit_angle     40      //ÏŞ·ù´óĞ¡£¬µ¥Î»ÊÇ½Ç¶È
 void balance_2()
 {
     balance_data.d_angle = balance_data.balance_angle - attitude_data.angle_car;
@@ -120,7 +120,7 @@ void balance_2()
 }
 #endif
 
-void balance_tick()  //20msä¸€æ¬¡
+void balance_tick()  //20msÒ»´Î
 {
     get_sensor_data();
     attitude_1();
@@ -146,7 +146,7 @@ void balance_init()
     attitude_data.angle_a = 0;
     attitude_data.angle_g = 0;
     attitude_data.angle = 0;
-    attitude_data.angle_core = -1.22;       //é‡å¿ƒè§’åº¦
+    attitude_data.angle_core = -1.22;       //ÖØĞÄ½Ç¶È
     attitude_data.angle_car = 0;
 
 #if BALANCE_TYPE == 1

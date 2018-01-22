@@ -3,6 +3,6 @@
 #include <stm32f10x_lib.h>
 
 void angle_init(void);
-void angle_setangle(int deg);    //è®¾ç½®è§’åº¦ï¼Œå•ä½æ˜¯åº¦ã€‚æ­£å‰æ–¹æ˜¯0ï¼Œå‘å·¦æ˜¯è´Ÿï¼Œå‘å³æ˜¯æ­£
+void angle_setangle(int deg);    //ÉèÖÃ½Ç¶È£¬µ¥Î»ÊÇ¶È¡£ÕıÇ°·½ÊÇ0£¬Ïò×óÊÇ¸º£¬ÏòÓÒÊÇÕı
 
 #endif

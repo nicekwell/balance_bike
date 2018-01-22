@@ -2,28 +2,28 @@
 #include <i2c.h>
 #include <stdio.h>
 
-/******************ä»¥ä¸‹æ˜¯mpu6050çš„ä¸¤ä¸ªå¯„å­˜å™¨æ“ä½œå‡½æ•°****************/
-static void mpu6050_writeReg(u8 regAddress,u8 dat)//å¾€mpu6050çš„æŒ‡å®šå¯„å­˜å™¨å†™å…¥æ•°æ®
+/******************ÒÔÏÂÊÇmpu6050µÄÁ½¸ö¼Ä´æÆ÷²Ù×÷º¯Êı****************/
+static void mpu6050_writeReg(u8 regAddress,u8 dat)//Íùmpu6050µÄÖ¸¶¨¼Ä´æÆ÷Ğ´ÈëÊı¾İ
 {
-    /************ è¿™é‡Œæ·»åŠ i2cæ¥å£å‡½æ•°ï¼Œå¾€I2Cè®¾å¤‡ï¼ˆä»æœºåœ°å€mpu6050_address)çš„regAddresså†™å…¥ä¸€ä¸ªå­—èŠ‚æ•°æ®dat *************/
+    /************ ÕâÀïÌí¼Ói2c½Ó¿Úº¯Êı£¬ÍùI2CÉè±¸£¨´Ó»úµØÖ·mpu6050_address)µÄregAddressĞ´ÈëÒ»¸ö×Ö½ÚÊı¾İdat *************/
     //wiringPiI2CWriteReg8(gy521, regAddress, dat);
     i2c_writeReg8(mpu6050_address, regAddress, dat);
 }
-static u8 mpu6050_readReg(u8 regAddress)//ä»mpu6050è¯»å–æŒ‡å®šçš„å¯„å­˜å™¨
+static u8 mpu6050_readReg(u8 regAddress)//´Ómpu6050¶ÁÈ¡Ö¸¶¨µÄ¼Ä´æÆ÷
 {
-    /************ è¿™é‡Œæ·»åŠ i2cæ¥å£å‡½æ•°ï¼Œä»I2Cè®¾å¤‡ï¼ˆä»æœºåœ°å€mpu6050_address)çš„regAddressè¯»å–ä¸€ä¸ªå­—èŠ‚æ•°æ®å¹¶è¿”å› *************/
+    /************ ÕâÀïÌí¼Ói2c½Ó¿Úº¯Êı£¬´ÓI2CÉè±¸£¨´Ó»úµØÖ·mpu6050_address)µÄregAddress¶ÁÈ¡Ò»¸ö×Ö½ÚÊı¾İ²¢·µ»Ø *************/
     //return (u8)wiringPiI2CReadReg8(gy521, regAddress);
     return i2c_readReg8(mpu6050_address, regAddress);
 }
 
-/*********************************************ä»¥ä¸‹æ˜¯å¯¹å¤–å…¬å¼€çš„å‡½æ•°*************************************/
+/*********************************************ÒÔÏÂÊÇ¶ÔÍâ¹«¿ªµÄº¯Êı*************************************/
 void mpu6050_init(void)
 {
-    mpu6050_writeReg(PWR_MGMT_1,0x00);//è§£é™¤ä¼‘çœ çŠ¶æ€
-    mpu6050_writeReg(SMPLRT_DIV,0x07);//è®¾ç½®é‡‡æ ·ç‡ã€‚é‡‡æ ·é¢‘ç‡=é™€èºä»ªè¾“å‡ºé¢‘ç‡/ï¼ˆ1+SMPLRT_DIVï¼‰
-    mpu6050_writeReg(CONFIG,0x06);//è®¾ç½®ä½é€šæ»¤æ³¢å™¨ï¼Œå…·ä½“åŠŸèƒ½ä¸æ¸…æ¥š
+    mpu6050_writeReg(PWR_MGMT_1,0x00);//½â³ıĞİÃß×´Ì¬
+    mpu6050_writeReg(SMPLRT_DIV,0x07);//ÉèÖÃ²ÉÑùÂÊ¡£²ÉÑùÆµÂÊ=ÍÓÂİÒÇÊä³öÆµÂÊ/£¨1+SMPLRT_DIV£©
+    mpu6050_writeReg(CONFIG,0x06);//ÉèÖÃµÍÍ¨ÂË²¨Æ÷£¬¾ßÌå¹¦ÄÜ²»Çå³ş
 
-//ä¸‹é¢è®¾ç½®åŠ é€Ÿåº¦ä¼ æ„Ÿå™¨çš„é‡ç¨‹
+//ÏÂÃæÉèÖÃ¼ÓËÙ¶È´«¸ĞÆ÷µÄÁ¿³Ì
     switch(mpu6050_AFS_SEL)
     {
     case 0://+-2g
@@ -40,7 +40,7 @@ void mpu6050_init(void)
         break;
     }
 
-//ä¸‹é¢è®¾ç½®é™€èºä»ªçš„é‡ç¨‹
+//ÏÂÃæÉèÖÃÍÓÂİÒÇµÄÁ¿³Ì
     switch(mpu6050_FS_SEL)
     {
     case 0://+-250 deg/s
@@ -58,14 +58,14 @@ void mpu6050_init(void)
     }
 }
 
-int mpu6050_getAccelXData(void)//è¿”å›xè½´åŠ é€Ÿåº¦çš„åŸå§‹æ•°æ®
+int mpu6050_getAccelXData(void)//·µ»ØxÖá¼ÓËÙ¶ÈµÄÔ­Ê¼Êı¾İ
 {
     u8 h,l;
     u32 temp;
     h=mpu6050_readReg(ACCEL_XOUT_H);
     l=mpu6050_readReg(ACCEL_XOUT_L);
     temp = (h<<8)+l;
-    if(temp&0x8000)     //æ˜¯è´Ÿæ•°
+    if(temp&0x8000)     //ÊÇ¸ºÊı
     {
         temp=~temp;
         temp&=0xffff;
@@ -75,14 +75,14 @@ int mpu6050_getAccelXData(void)//è¿”å›xè½´åŠ é€Ÿåº¦çš„åŸå§‹æ•°æ®
     else
         return (int)temp;
 }
-int mpu6050_getAccelYData(void)//è¿”å›yè½´åŠ é€Ÿåº¦çš„åŸå§‹æ•°æ®
+int mpu6050_getAccelYData(void)//·µ»ØyÖá¼ÓËÙ¶ÈµÄÔ­Ê¼Êı¾İ
 {
     u8 h,l;
     u32 temp;
     h=mpu6050_readReg(ACCEL_YOUT_H);
     l=mpu6050_readReg(ACCEL_YOUT_L);
     temp = (h<<8)+l;
-    if(temp&0x8000)     //æ˜¯è´Ÿæ•°
+    if(temp&0x8000)     //ÊÇ¸ºÊı
     {
         temp=~temp;
         temp&=0xffff;
@@ -92,14 +92,14 @@ int mpu6050_getAccelYData(void)//è¿”å›yè½´åŠ é€Ÿåº¦çš„åŸå§‹æ•°æ®
     else
         return (int)temp;
 }
-int mpu6050_getAccelZData(void)//è¿”å›zè½´åŠ é€Ÿåº¦çš„åŸå§‹æ•°æ®
+int mpu6050_getAccelZData(void)//·µ»ØzÖá¼ÓËÙ¶ÈµÄÔ­Ê¼Êı¾İ
 {
     u8 h,l;
     u32 temp;
     h=mpu6050_readReg(ACCEL_ZOUT_H);
     l=mpu6050_readReg(ACCEL_ZOUT_L);
     temp = (h<<8)+l;
-    if(temp&0x8000)     //æ˜¯è´Ÿæ•°
+    if(temp&0x8000)     //ÊÇ¸ºÊı
     {
         temp=~temp;
         temp&=0xffff;
@@ -109,14 +109,14 @@ int mpu6050_getAccelZData(void)//è¿”å›zè½´åŠ é€Ÿåº¦çš„åŸå§‹æ•°æ®
     else
         return (int)temp;
 }
-int mpu6050_getGyroXData(void)//è¿”å›xè½´è§’é€Ÿåº¦çš„åŸå§‹æ•°æ®
+int mpu6050_getGyroXData(void)//·µ»ØxÖá½ÇËÙ¶ÈµÄÔ­Ê¼Êı¾İ
 {
     u8 h,l;
     u32 temp;
     h=mpu6050_readReg(GYRO_XOUT_H);
     l=mpu6050_readReg(GYRO_XOUT_L);
     temp = (h<<8)+l;
-    if(temp&0x8000)     //æ˜¯è´Ÿæ•°
+    if(temp&0x8000)     //ÊÇ¸ºÊı
     {
         temp=~temp;
         temp&=0xffff;
@@ -126,14 +126,14 @@ int mpu6050_getGyroXData(void)//è¿”å›xè½´è§’é€Ÿåº¦çš„åŸå§‹æ•°æ®
     else
         return (int)temp;
 }
-int mpu6050_getGyroYData(void)//è¿”å›yè½´è§’é€Ÿåº¦çš„åŸå§‹æ•°æ®
+int mpu6050_getGyroYData(void)//·µ»ØyÖá½ÇËÙ¶ÈµÄÔ­Ê¼Êı¾İ
 {
     u8 h,l;
     u32 temp;
     h=mpu6050_readReg(GYRO_YOUT_H);
     l=mpu6050_readReg(GYRO_YOUT_L);
     temp = (h<<8)+l;
-    if(temp&0x8000)     //æ˜¯è´Ÿæ•°
+    if(temp&0x8000)     //ÊÇ¸ºÊı
     {
         temp=~temp;
         temp&=0xffff;
@@ -143,14 +143,14 @@ int mpu6050_getGyroYData(void)//è¿”å›yè½´è§’é€Ÿåº¦çš„åŸå§‹æ•°æ®
     else
         return (int)temp;
 }
-int mpu6050_getGyroZData(void)//è¿”å›zè½´è§’é€Ÿåº¦çš„åŸå§‹æ•°æ®
+int mpu6050_getGyroZData(void)//·µ»ØzÖá½ÇËÙ¶ÈµÄÔ­Ê¼Êı¾İ
 {
     u8 h,l;
     u32 temp;
     h=mpu6050_readReg(GYRO_ZOUT_H);
     l=mpu6050_readReg(GYRO_ZOUT_L);
     temp = (h<<8)+l;
-    if(temp&0x8000)     //æ˜¯è´Ÿæ•°
+    if(temp&0x8000)     //ÊÇ¸ºÊı
     {
         temp=~temp;
         temp&=0xffff;
@@ -160,14 +160,14 @@ int mpu6050_getGyroZData(void)//è¿”å›zè½´è§’é€Ÿåº¦çš„åŸå§‹æ•°æ®
     else
         return (int)temp;
 }
-int mpu6050_getTemperatureData(void)//è¿”å›æ¸©åº¦çš„åŸå§‹æ•°æ®
+int mpu6050_getTemperatureData(void)//·µ»ØÎÂ¶ÈµÄÔ­Ê¼Êı¾İ
 {
     u8 h,l;
     u32 temp;
     h=mpu6050_readReg(TEMP_OUT_H);
     l=mpu6050_readReg(TEMP_OUT_L);
     temp = (h<<8)+l;
-    if(temp&0x8000)     //æ˜¯è´Ÿæ•°
+    if(temp&0x8000)     //ÊÇ¸ºÊı
     {
         temp=~temp;
         temp&=0xffff;
@@ -179,142 +179,142 @@ int mpu6050_getTemperatureData(void)//è¿”å›æ¸©åº¦çš„åŸå§‹æ•°æ®
 }
 
 /*******************************************************************
-æ³¨æ„ï¼šä¸Šé¢å¯¹åŸå§‹æ•°æ®çš„è¯»å–éƒ½æ˜¯æ­£ç¡®çš„ï¼Œä½†æ˜¯ä¸‹é¢æŠŠåŸå§‹æ•°æ®æ¢ç®—æˆå®é™…ç‰©ç†å€¼ä¼š
-å‡ºç°é—®é¢˜ï¼Œåº”è¯¥æ˜¯ç²¾åº¦ä¸å¤Ÿé€ æˆçš„ï¼Œcè¯­è¨€åœ¨è¿›è¡Œæµ®ç‚¹æ•°è¿ç®—æ—¶è€æ˜¯ä¼šå‡ºé”™ã€‚
+×¢Òâ£ºÉÏÃæ¶ÔÔ­Ê¼Êı¾İµÄ¶ÁÈ¡¶¼ÊÇÕıÈ·µÄ£¬µ«ÊÇÏÂÃæ°ÑÔ­Ê¼Êı¾İ»»Ëã³ÉÊµ¼ÊÎïÀíÖµ»á
+³öÏÖÎÊÌâ£¬Ó¦¸ÃÊÇ¾«¶È²»¹»Ôì³ÉµÄ£¬cÓïÑÔÔÚ½øĞĞ¸¡µãÊıÔËËãÊ±ÀÏÊÇ»á³ö´í¡£
 *******************************************************************/
-double mpu6050_getAccelX(void)//è¿”å›xè½´åŠ é€Ÿåº¦çš„ç‰©ç†å€¼ï¼Œå•ä½æ˜¯m/s^2
+double mpu6050_getAccelX(void)//·µ»ØxÖá¼ÓËÙ¶ÈµÄÎïÀíÖµ£¬µ¥Î»ÊÇm/s^2
 {
     double temp;
     switch(mpu6050_AFS_SEL)
     {
     case 0://+-2g
-        temp=(double)mpu6050_getAccelXData()/16384;//æ­¤æ—¶å¾—åˆ°çš„å•ä½æ˜¯g
-        temp*=9.8;//å¾—åˆ°å•ä½æ˜¯m/s^2
+        temp=(double)mpu6050_getAccelXData()/16384;//´ËÊ±µÃµ½µÄµ¥Î»ÊÇg
+        temp*=9.8;//µÃµ½µ¥Î»ÊÇm/s^2
         break;
     case 1://+-4g
-        temp=(double)mpu6050_getAccelXData()/8192;//æ­¤æ—¶å¾—åˆ°çš„å•ä½æ˜¯g
-        temp*=9.8;//å¾—åˆ°å•ä½æ˜¯m/s^2
+        temp=(double)mpu6050_getAccelXData()/8192;//´ËÊ±µÃµ½µÄµ¥Î»ÊÇg
+        temp*=9.8;//µÃµ½µ¥Î»ÊÇm/s^2
         break;
     case 2://+-8g
-        temp=(double)mpu6050_getAccelXData()/4096;//æ­¤æ—¶å¾—åˆ°çš„å•ä½æ˜¯g
-        temp*=9.8;//å¾—åˆ°å•ä½æ˜¯m/s^2
+        temp=(double)mpu6050_getAccelXData()/4096;//´ËÊ±µÃµ½µÄµ¥Î»ÊÇg
+        temp*=9.8;//µÃµ½µ¥Î»ÊÇm/s^2
         break;
     case 3://+-16g
-        temp=(double)mpu6050_getAccelXData()/2048;//æ­¤æ—¶å¾—åˆ°çš„å•ä½æ˜¯g
-        temp*=9.8;//å¾—åˆ°å•ä½æ˜¯m/s^2
+        temp=(double)mpu6050_getAccelXData()/2048;//´ËÊ±µÃµ½µÄµ¥Î»ÊÇg
+        temp*=9.8;//µÃµ½µ¥Î»ÊÇm/s^2
         break;
     }
     return temp;
 }
-double mpu6050_getAccelY(void)//è¿”å›yè½´åŠ é€Ÿåº¦çš„ç‰©ç†å€¼ï¼Œå•ä½æ˜¯m/s^2
+double mpu6050_getAccelY(void)//·µ»ØyÖá¼ÓËÙ¶ÈµÄÎïÀíÖµ£¬µ¥Î»ÊÇm/s^2
 {
     double temp;
     switch(mpu6050_AFS_SEL)
     {
     case 0://+-2g
-        temp=(double)mpu6050_getAccelYData()/16384;//æ­¤æ—¶å¾—åˆ°çš„å•ä½æ˜¯g
-        temp*=9.8;//å¾—åˆ°å•ä½æ˜¯m/s^2
+        temp=(double)mpu6050_getAccelYData()/16384;//´ËÊ±µÃµ½µÄµ¥Î»ÊÇg
+        temp*=9.8;//µÃµ½µ¥Î»ÊÇm/s^2
         break;
     case 1://+-4g
-        temp=(double)mpu6050_getAccelYData()/8192;//æ­¤æ—¶å¾—åˆ°çš„å•ä½æ˜¯g
-        temp*=9.8;//å¾—åˆ°å•ä½æ˜¯m/s^2
+        temp=(double)mpu6050_getAccelYData()/8192;//´ËÊ±µÃµ½µÄµ¥Î»ÊÇg
+        temp*=9.8;//µÃµ½µ¥Î»ÊÇm/s^2
         break;
     case 2://+-8g
-        temp=(double)mpu6050_getAccelYData()/4096;//æ­¤æ—¶å¾—åˆ°çš„å•ä½æ˜¯g
-        temp*=9.8;//å¾—åˆ°å•ä½æ˜¯m/s^2
+        temp=(double)mpu6050_getAccelYData()/4096;//´ËÊ±µÃµ½µÄµ¥Î»ÊÇg
+        temp*=9.8;//µÃµ½µ¥Î»ÊÇm/s^2
         break;
     case 3://+-16g
-        temp=(double)mpu6050_getAccelYData()/2048;//æ­¤æ—¶å¾—åˆ°çš„å•ä½æ˜¯g
-        temp*=9.8;//å¾—åˆ°å•ä½æ˜¯m/s^2
+        temp=(double)mpu6050_getAccelYData()/2048;//´ËÊ±µÃµ½µÄµ¥Î»ÊÇg
+        temp*=9.8;//µÃµ½µ¥Î»ÊÇm/s^2
         break;
     }
     return temp;
 }
-double mpu6050_getAccelZ(void)//è¿”å›zè½´åŠ é€Ÿåº¦çš„ç‰©ç†å€¼ï¼Œå•ä½æ˜¯m/s^2
+double mpu6050_getAccelZ(void)//·µ»ØzÖá¼ÓËÙ¶ÈµÄÎïÀíÖµ£¬µ¥Î»ÊÇm/s^2
 {
     double temp;
     switch(mpu6050_AFS_SEL)
     {
     case 0://+-2g
-        temp=(double)mpu6050_getAccelZData()/16384;//æ­¤æ—¶å¾—åˆ°çš„å•ä½æ˜¯g
-        temp*=9.8;//å¾—åˆ°å•ä½æ˜¯m/s^2
+        temp=(double)mpu6050_getAccelZData()/16384;//´ËÊ±µÃµ½µÄµ¥Î»ÊÇg
+        temp*=9.8;//µÃµ½µ¥Î»ÊÇm/s^2
         break;
     case 1://+-4g
-        temp=(double)mpu6050_getAccelZData()/8192;//æ­¤æ—¶å¾—åˆ°çš„å•ä½æ˜¯g
-        temp*=9.8;//å¾—åˆ°å•ä½æ˜¯m/s^2
+        temp=(double)mpu6050_getAccelZData()/8192;//´ËÊ±µÃµ½µÄµ¥Î»ÊÇg
+        temp*=9.8;//µÃµ½µ¥Î»ÊÇm/s^2
         break;
     case 2://+-8g
-        temp=(double)mpu6050_getAccelZData()/4096;//æ­¤æ—¶å¾—åˆ°çš„å•ä½æ˜¯g
-        temp*=9.8;//å¾—åˆ°å•ä½æ˜¯m/s^2
+        temp=(double)mpu6050_getAccelZData()/4096;//´ËÊ±µÃµ½µÄµ¥Î»ÊÇg
+        temp*=9.8;//µÃµ½µ¥Î»ÊÇm/s^2
         break;
     case 3://+-16g
-        temp=(double)mpu6050_getAccelZData()/2048;//æ­¤æ—¶å¾—åˆ°çš„å•ä½æ˜¯g
-        temp*=9.8;//å¾—åˆ°å•ä½æ˜¯m/s^2
+        temp=(double)mpu6050_getAccelZData()/2048;//´ËÊ±µÃµ½µÄµ¥Î»ÊÇg
+        temp*=9.8;//µÃµ½µ¥Î»ÊÇm/s^2
         break;
     }
     return temp;
 }
-double mpu6050_getGyroX(void)//è¿”å›xè½´çš„è§’é€Ÿåº¦ï¼Œå•ä½æ˜¯ deg/s
+double mpu6050_getGyroX(void)//·µ»ØxÖáµÄ½ÇËÙ¶È£¬µ¥Î»ÊÇ deg/s
 {
     double temp;
     switch(mpu6050_FS_SEL)
     {
     case 0://+-250 deg/s
-        temp=(double)mpu6050_getGyroXData()*0.007629394;//å¾—åˆ°çš„å•ä½æ˜¯ deg/s
+        temp=(double)mpu6050_getGyroXData()*0.007629394;//µÃµ½µÄµ¥Î»ÊÇ deg/s
         break;
     case 1://+-500 deg/s
-        temp=(double)mpu6050_getGyroXData()*0.015258789;//å¾—åˆ°çš„å•ä½æ˜¯ deg/s
+        temp=(double)mpu6050_getGyroXData()*0.015258789;//µÃµ½µÄµ¥Î»ÊÇ deg/s
         break;
     case 2://+-1000 deg/s
-        temp=(double)mpu6050_getGyroXData()*0.030517578;//å¾—åˆ°çš„å•ä½æ˜¯ deg/s
+        temp=(double)mpu6050_getGyroXData()*0.030517578;//µÃµ½µÄµ¥Î»ÊÇ deg/s
         break;
     case 3://+-2000 deg/s
-        temp=(double)mpu6050_getGyroXData()*0.061035156;//å¾—åˆ°çš„å•ä½æ˜¯ deg/s
+        temp=(double)mpu6050_getGyroXData()*0.061035156;//µÃµ½µÄµ¥Î»ÊÇ deg/s
         break;
     }
     return temp;
 }
-double mpu6050_getGyroY(void)//è¿”å›yè½´çš„è§’é€Ÿåº¦ï¼Œå•ä½æ˜¯ deg/s
+double mpu6050_getGyroY(void)//·µ»ØyÖáµÄ½ÇËÙ¶È£¬µ¥Î»ÊÇ deg/s
 {
     double temp;
     switch(mpu6050_FS_SEL)
     {
     case 0://+-250 deg/s
-        temp=(double)mpu6050_getGyroYData()*0.007629394;//å¾—åˆ°çš„å•ä½æ˜¯ deg/s
+        temp=(double)mpu6050_getGyroYData()*0.007629394;//µÃµ½µÄµ¥Î»ÊÇ deg/s
         break;
     case 1://+-500 deg/s
-        temp=(double)mpu6050_getGyroYData()*0.015258789;//å¾—åˆ°çš„å•ä½æ˜¯ deg/s
+        temp=(double)mpu6050_getGyroYData()*0.015258789;//µÃµ½µÄµ¥Î»ÊÇ deg/s
         break;
     case 2://+-1000 deg/s
-        temp=(double)mpu6050_getGyroYData()*0.030517578;//å¾—åˆ°çš„å•ä½æ˜¯ deg/s
+        temp=(double)mpu6050_getGyroYData()*0.030517578;//µÃµ½µÄµ¥Î»ÊÇ deg/s
         break;
     case 3://+-2000 deg/s
-        temp=(double)mpu6050_getGyroYData()*0.061035156;//å¾—åˆ°çš„å•ä½æ˜¯ deg/s
+        temp=(double)mpu6050_getGyroYData()*0.061035156;//µÃµ½µÄµ¥Î»ÊÇ deg/s
         break;
     }
     return temp;
 }
-double mpu6050_getGyroZ(void)//è¿”å›zè½´çš„è§’é€Ÿåº¦ï¼Œå•ä½æ˜¯ deg/s
+double mpu6050_getGyroZ(void)//·µ»ØzÖáµÄ½ÇËÙ¶È£¬µ¥Î»ÊÇ deg/s
 {
     double temp;
     switch(mpu6050_FS_SEL)
     {
     case 0://+-250 deg/s
-        temp=(double)mpu6050_getGyroZData()*0.007629394;//å¾—åˆ°çš„å•ä½æ˜¯ deg/s
+        temp=(double)mpu6050_getGyroZData()*0.007629394;//µÃµ½µÄµ¥Î»ÊÇ deg/s
         break;
     case 1://+-500 deg/s
-        temp=(double)mpu6050_getGyroZData()*0.015258789;//å¾—åˆ°çš„å•ä½æ˜¯ deg/s
+        temp=(double)mpu6050_getGyroZData()*0.015258789;//µÃµ½µÄµ¥Î»ÊÇ deg/s
         break;
     case 2://+-1000 deg/s
-        temp=(double)mpu6050_getGyroZData()*0.030517578;//å¾—åˆ°çš„å•ä½æ˜¯ deg/s
+        temp=(double)mpu6050_getGyroZData()*0.030517578;//µÃµ½µÄµ¥Î»ÊÇ deg/s
         break;
     case 3://+-2000 deg/s
-        temp=(double)mpu6050_getGyroZData()*0.061035156;//å¾—åˆ°çš„å•ä½æ˜¯ deg/s
+        temp=(double)mpu6050_getGyroZData()*0.061035156;//µÃµ½µÄµ¥Î»ÊÇ deg/s
         break;
     }
     return temp;
 }
-float mpu6050_getTemperature(void)//è¿”å›æ¸©åº¦ï¼Œå•ä½æ˜¯æ‘„æ°åº¦
+float mpu6050_getTemperature(void)//·µ»ØÎÂ¶È£¬µ¥Î»ÊÇÉãÊÏ¶È
 {
     return (float)mpu6050_getTemperatureData()/340 + 36.53;
 }

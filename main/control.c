@@ -1,21 +1,21 @@
 #if BALANCE_TYPE == 1
 
-extern int disp_type;      //0-ç”µè„‘ä¸Šæ˜¾ç¤ºç•Œé¢ï¼Œ1-æ‰‹æŸ„æ˜¾ç¤ºç•Œé¢
-int focus=0;    //å½“å‰è°ƒèŠ‚çš„ç„¦ç‚¹
-                //0-kpï¼Œ1-kdï¼Œ2-Lï¼Œ3-Lmï¼Œ4-V
-void focus_plus()       //ç„¦ç‚¹+1
+extern int disp_type;      //0-µçÄÔÉÏÏÔÊ¾½çÃæ£¬1-ÊÖ±úÏÔÊ¾½çÃæ
+int focus=0;    //µ±Ç°µ÷½ÚµÄ½¹µã
+                //0-kp£¬1-kd£¬2-L£¬3-Lm£¬4-V
+void focus_plus()       //½¹µã+1
 {
     focus++;
     if(focus == 5)
         focus = 0;
 }
-void focus_minus()      //ç„¦ç‚¹-1
+void focus_minus()      //½¹µã-1
 {
     focus--;
     if(focus == -1)
         focus = 4;
 }
-void content_plus()     //å½“å‰é€‰ä¸­çš„å†…å®¹+
+void content_plus()     //µ±Ç°Ñ¡ÖĞµÄÄÚÈİ+
 {
     switch(focus)
     {
@@ -36,7 +36,7 @@ void content_plus()     //å½“å‰é€‰ä¸­çš„å†…å®¹+
         break;
     }
 }
-void content_minus()    //å½“å‰é€‰ä¸­çš„å†…å®¹-
+void content_minus()    //µ±Ç°Ñ¡ÖĞµÄÄÚÈİ-
 {
     switch(focus)
     {
@@ -60,7 +60,7 @@ void content_minus()    //å½“å‰é€‰ä¸­çš„å†…å®¹-
 
 void get_control_dat(u8 dat)
 {
-    //é”®ç›˜æ§åˆ¶éƒ¨åˆ†
+    //¼üÅÌ¿ØÖÆ²¿·Ö
     switch(dat)
     {
     case 'u':
@@ -94,9 +94,9 @@ void get_control_dat(u8 dat)
         balance_data.kd-=0.01;
         break;
     }
-    //æ‰‹æŸ„æ§åˆ¶éƒ¨åˆ†
+    //ÊÖ±ú¿ØÖÆ²¿·Ö
     {
-        static u8 flag=0;      //0-å½“å‰æ•°æ®ä»€ä¹ˆä¹Ÿä¸æ˜¯ã€‚1-å½“å‰æ•°æ®æ˜¯Lxå€¼ï¼Œ2-å½“å‰æ•°æ®æ˜¯Lyå€¼ï¼Œ3-å½“å‰æ•°æ®æ˜¯Rxå€¼ï¼Œ4-å½“å‰æ•°æ®æ˜¯Ryå€¼ã€‚
+        static u8 flag=0;      //0-µ±Ç°Êı¾İÊ²Ã´Ò²²»ÊÇ¡£1-µ±Ç°Êı¾İÊÇLxÖµ£¬2-µ±Ç°Êı¾İÊÇLyÖµ£¬3-µ±Ç°Êı¾İÊÇRxÖµ£¬4-µ±Ç°Êı¾İÊÇRyÖµ¡£
         s8 temp;
         switch(flag)
         {
@@ -109,37 +109,37 @@ void get_control_dat(u8 dat)
                 flag = 3;
             else if(dat == 153)
                 flag = 4;
-            else        //è¿™é‡Œæ˜¯ä¸€èˆ¬çš„æŒ‰é”®å¤„ç†
+            else        //ÕâÀïÊÇÒ»°ãµÄ°´¼ü´¦Àí
             {
                 switch(dat)
                 {
-                case 200:       //1(ä¸‰è§’)
+                case 200:       //1(Èı½Ç)
                     content_plus();
                     break;
-                case 202:       //2 åœ†
+                case 202:       //2 Ô²
                     disp_type = 1;
                     focus_plus();
                     break;
-                case 204:       //3 å‰
+                case 204:       //3 ²æ
                     content_minus();
                     break;
-                case 206:       //4 æ–¹å—
+                case 206:       //4 ·½¿é
                     focus_minus();
                     break;
-                case 208:       //ä¸Š
+                case 208:       //ÉÏ
                     break;
-                case 210:       //å³æŒ‰ä¸‹
+                case 210:       //ÓÒ°´ÏÂ
                     balance_data.balance_angle = 2;
                     break;
-                case 211:       //å³é‡Šæ”¾
+                case 211:       //ÓÒÊÍ·Å
                     balance_data.balance_angle = 0;
                     break;
-                case 212:       //ä¸‹
+                case 212:       //ÏÂ
                     break;
-                case 214:       //å·¦æŒ‰ä¸‹
+                case 214:       //×ó°´ÏÂ
                     balance_data.balance_angle = -2;
                     break;
-                case 215:       //å·¦é‡Šæ”¾
+                case 215:       //×óÊÍ·Å
                     balance_data.balance_angle = 0;
                     break;
                 }
@@ -167,22 +167,22 @@ void get_control_dat(u8 dat)
 
 #elif BALANCE_TYPE == 2
 
-extern int disp_type;      //0-ç”µè„‘ä¸Šæ˜¾ç¤ºç•Œé¢ï¼Œ1-æ‰‹æŸ„æ˜¾ç¤ºç•Œé¢
-int focus=0;    //å½“å‰è°ƒèŠ‚çš„ç„¦ç‚¹
-                //0-kpï¼Œ1-kd
-void focus_plus()       //ç„¦ç‚¹+1
+extern int disp_type;      //0-µçÄÔÉÏÏÔÊ¾½çÃæ£¬1-ÊÖ±úÏÔÊ¾½çÃæ
+int focus=0;    //µ±Ç°µ÷½ÚµÄ½¹µã
+                //0-kp£¬1-kd
+void focus_plus()       //½¹µã+1
 {
     focus++;
     if(focus == 2)
         focus = 0;
 }
-void focus_minus()      //ç„¦ç‚¹-1
+void focus_minus()      //½¹µã-1
 {
     focus--;
     if(focus == -1)
         focus = 1;
 }
-void content_plus()     //å½“å‰é€‰ä¸­çš„å†…å®¹+
+void content_plus()     //µ±Ç°Ñ¡ÖĞµÄÄÚÈİ+
 {
     switch(focus)
     {
@@ -194,7 +194,7 @@ void content_plus()     //å½“å‰é€‰ä¸­çš„å†…å®¹+
         break;
     }
 }
-void content_minus()    //å½“å‰é€‰ä¸­çš„å†…å®¹-
+void content_minus()    //µ±Ç°Ñ¡ÖĞµÄÄÚÈİ-
 {
     switch(focus)
     {
@@ -208,7 +208,7 @@ void content_minus()    //å½“å‰é€‰ä¸­çš„å†…å®¹-
 }
 void get_control_dat(u8 dat)
 {
-    //é”®ç›˜æ§åˆ¶éƒ¨åˆ†
+    //¼üÅÌ¿ØÖÆ²¿·Ö
     switch(dat)
     {
     case 'u':
@@ -242,9 +242,9 @@ void get_control_dat(u8 dat)
         balance_data.kd-=0.1;
         break;
     }
-    //æ‰‹æŸ„æ§åˆ¶éƒ¨åˆ†
+    //ÊÖ±ú¿ØÖÆ²¿·Ö
     {
-        static u8 flag=0;      //0-å½“å‰æ•°æ®ä»€ä¹ˆä¹Ÿä¸æ˜¯ã€‚1-å½“å‰æ•°æ®æ˜¯Lxå€¼ï¼Œ2-å½“å‰æ•°æ®æ˜¯Lyå€¼ï¼Œ3-å½“å‰æ•°æ®æ˜¯Rxå€¼ï¼Œ4-å½“å‰æ•°æ®æ˜¯Ryå€¼ã€‚
+        static u8 flag=0;      //0-µ±Ç°Êı¾İÊ²Ã´Ò²²»ÊÇ¡£1-µ±Ç°Êı¾İÊÇLxÖµ£¬2-µ±Ç°Êı¾İÊÇLyÖµ£¬3-µ±Ç°Êı¾İÊÇRxÖµ£¬4-µ±Ç°Êı¾İÊÇRyÖµ¡£
         s8 temp;
         switch(flag)
         {
@@ -257,34 +257,34 @@ void get_control_dat(u8 dat)
                 flag = 3;
             else if(dat == 153)
                 flag = 4;
-            else        //è¿™é‡Œæ˜¯ä¸€èˆ¬çš„æŒ‰é”®å¤„ç†
+            else        //ÕâÀïÊÇÒ»°ãµÄ°´¼ü´¦Àí
             {
                 switch(dat)
                 {
-                case 200:       //1(ä¸‰è§’)
+                case 200:       //1(Èı½Ç)
                     content_plus();
                     break;
-                case 202:       //2 åœ†
+                case 202:       //2 Ô²
                     disp_type = 1;
                     focus_plus();
                     break;
-                case 204:       //3 å‰
+                case 204:       //3 ²æ
                     content_minus();
                     break;
-                case 206:       //4 æ–¹å—
+                case 206:       //4 ·½¿é
                     focus_minus();
                     break;
-                case 208:       //ä¸Š
+                case 208:       //ÉÏ
                     break;
-                case 210:       //å³æŒ‰ä¸‹
+                case 210:       //ÓÒ°´ÏÂ
                     break;
-                case 211:       //å³é‡Šæ”¾
+                case 211:       //ÓÒÊÍ·Å
                     break;
-                case 212:       //ä¸‹
+                case 212:       //ÏÂ
                     break;
-                case 214:       //å·¦æŒ‰ä¸‹
+                case 214:       //×ó°´ÏÂ
                     break;
-                case 215:       //å·¦é‡Šæ”¾
+                case 215:       //×óÊÍ·Å
                     break;
                 }
             }

@@ -2,8 +2,8 @@
 
 void motor_init()
 {
-    /* å„ä¸ªå®šæ—¶å™¨çš„é€šé“å¼•è„šå¦‚ä¸‹ï¼š
-       å®šæ—¶å™¨  TIMx_CH1    TIMx_CH2    TIMx_CH3    TIMx_CH4
+    /* ¸÷¸ö¶¨Ê±Æ÷µÄÍ¨µÀÒý½ÅÈçÏÂ£º
+       ¶¨Ê±Æ÷  TIMx_CH1    TIMx_CH2    TIMx_CH3    TIMx_CH4
        TIM1    PA8         PA9         PA10        PA11
        TIM2    PA0         PA1         PA2         PA3
        TIM3    PA6         PA7         PB0         PB1
@@ -12,56 +12,56 @@ void motor_init()
        TIM6    -           -           -           -
        TIM7    -           -           -           -
        TIM8    PC6         PC7         PC8         PC9     */
-    /* ä½¿èƒ½å®šæ—¶å™¨æ—¶é’Ÿæ¨¡å—ã€‚
-       é«˜çº§å®šæ—¶å™¨TIM1å’ŒTIM8æŒ‚åœ¨é«˜é€Ÿæ—¶é’Ÿçº¿APB2ä¸Šï¼Œé€šç”¨å®šæ—¶å™¨TIM2~TIM7æŒ‚åœ¨ä½Žé€Ÿæ—¶é’Ÿçº¿APB1ä¸Šã€‚
-       è™½ç„¶ä¸åŒçš„å®šæ—¶å™¨å¯èƒ½æŒ‚åœ¨ä¸åŒçš„APBæ€»çº¿ä¸Šï¼Œä½†åœ¨é€šå¸¸çš„APBæ–¹æ¡ˆä¸­ï¼Œä¼ åˆ°å®šæ—¶å™¨çš„æ—¶é’Ÿéƒ½æ˜¯72MHzã€‚ï¼ˆè¯¦ç»†åŽŸå› è§ç¬”è®°ï¼‰ */
+    /* Ê¹ÄÜ¶¨Ê±Æ÷Ê±ÖÓÄ£¿é¡£
+       ¸ß¼¶¶¨Ê±Æ÷TIM1ºÍTIM8¹ÒÔÚ¸ßËÙÊ±ÖÓÏßAPB2ÉÏ£¬Í¨ÓÃ¶¨Ê±Æ÷TIM2~TIM7¹ÒÔÚµÍËÙÊ±ÖÓÏßAPB1ÉÏ¡£
+       ËäÈ»²»Í¬µÄ¶¨Ê±Æ÷¿ÉÄÜ¹ÒÔÚ²»Í¬µÄAPB×ÜÏßÉÏ£¬µ«ÔÚÍ¨³£µÄAPB·½°¸ÖÐ£¬´«µ½¶¨Ê±Æ÷µÄÊ±ÖÓ¶¼ÊÇ72MHz¡££¨ÏêÏ¸Ô­Òò¼û±Ê¼Ç£© */
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE);
-    /* é…ç½®å®šæ—¶å™¨æ—¶é’Ÿæº */
-    // å®šæ—¶å™¨é»˜è®¤æ—¶é’Ÿæ˜¯é€šè¿‡APBè¿‡æ¥çš„ï¼Œæ‰€ä»¥è¿™é‡Œä¸éœ€è¦é…ç½®
-    /* ä½¿èƒ½å°†è¦ä½œä¸ºpwmè¾“å‡ºçš„GPIOå£æ—¶é’Ÿï¼Œæ ¹æ®ä¸Šé¢è¡¨æ ¼æŸ¥åˆ° */
+    /* ÅäÖÃ¶¨Ê±Æ÷Ê±ÖÓÔ´ */
+    // ¶¨Ê±Æ÷Ä¬ÈÏÊ±ÖÓÊÇÍ¨¹ýAPB¹ýÀ´µÄ£¬ËùÒÔÕâÀï²»ÐèÒªÅäÖÃ
+    /* Ê¹ÄÜ½«Òª×÷ÎªpwmÊä³öµÄGPIO¿ÚÊ±ÖÓ£¬¸ù¾ÝÉÏÃæ±í¸ñ²éµ½ */
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
-    /* é…ç½®å°†è¦ä½œä¸ºpwmè¾“å‡ºçš„å¼•è„šçš„è¾“å‡ºæ¨¡å¼ä¸º"æŽ¨æŒ½å¤ç”¨è¾“å‡º" */
+    /* ÅäÖÃ½«Òª×÷ÎªpwmÊä³öµÄÒý½ÅµÄÊä³öÄ£Ê½Îª"ÍÆÍì¸´ÓÃÊä³ö" */
     {
         GPIO_InitTypeDef temp;
         temp.GPIO_Speed = GPIO_Speed_50MHz;
         temp.GPIO_Mode = GPIO_Mode_AF_PP;
-        temp.GPIO_Pin = GPIO_Pin_6;     //æ ¹æ®ä¸Šé¢è¡¨æ ¼è®¾ç½®å¯¹åº”çš„å¼•è„š
+        temp.GPIO_Pin = GPIO_Pin_6;     //¸ù¾ÝÉÏÃæ±í¸ñÉèÖÃ¶ÔÓ¦µÄÒý½Å
         GPIO_Init(GPIOA, &temp);
     }
-    /* é…ç½®å®šæ—¶å™¨åŸºæœ¬è®¡æ•°å•å…ƒ */
+    /* ÅäÖÃ¶¨Ê±Æ÷»ù±¾¼ÆÊýµ¥Ôª */
     {
         TIM_TimeBaseInitTypeDef temp;
-        temp.TIM_Prescaler = 72-1;  /* é¢„åˆ†é¢‘å¯„å­˜å™¨ï¼Œ[0, 65535]ã€‚ä¸ç®¡æ˜¯é‚£ä¸ªtimï¼ŒAPBè¿‡æ¥çš„é¢‘çŽ‡éƒ½æ˜¯72MHzã€‚è¿™é‡Œ72-1è®¾ç½®çš„æ˜¯1MHzã€‚
-                                       72Mhz/(TIM_Prescaler+1) = CK_CNTï¼ˆè®¡æ•°å™¨çš„æ—¶é’Ÿé¢‘çŽ‡ï¼‰ï¼ŒTIM_Prescaler = 72MHz/CK_CNT - 1 */
-        temp.TIM_Period = 100-1;     /* è‡ªåŠ¨è£…è½½å¯„å­˜å™¨ï¼Œ[0, 65535]ã€‚è¿™é‡Œ100-1è®¾ç½®çš„æ˜¯100ä¸ªè®¡æ•°å™¨å‘¨æœŸä½œä¸ºæº¢å‡ºå‘¨æœŸã€‚
-                                        ä¸Šé¢é¢„åˆ†é¢‘è®¾ç½®å¥½è®¡æ•°å™¨å‘¨æœŸåŽ(1/CK_CNT)ï¼Œè¿™ä¸ªå‘¨æœŸçš„(TIM_Period+1)å€å°±æ˜¯è®¡æ•°å™¨çš„æº¢å‡ºå‘¨æœŸã€‚*/
-        //ç»“åˆä¸Šé¢ä¸¤ä¸ªï¼Œæœ‰ä¸€ä¸ªæº¢å‡ºå‘¨æœŸå…¬å¼ï¼šæº¢å‡ºå‘¨æœŸ = (TIM_Prescaler+1)*(TIM_Period+1)/72000000ï¼Œå•ä½æ˜¯sã€‚
-        temp.TIM_CounterMode = TIM_CounterMode_Up; /* è®¡æ•°æ¨¡å¼ï¼š
-                                                      TIM_CounterMode_Up                TIM å‘ä¸Šè®¡æ•°æ¨¡å¼
-                                                      TIM_CounterMode_Down              TIM å‘ä¸‹è®¡æ•°æ¨¡å¼
-                                                      TIM_CounterMode_CenterAligned1    TIM ä¸­å¤®å¯¹é½æ¨¡å¼ 1 è®¡æ•°æ¨¡å¼
-                                                      TIM_CounterMode_CenterAligned2    TIM ä¸­å¤®å¯¹é½æ¨¡å¼ 2 è®¡æ•°æ¨¡å¼
-                                                      TIM_CounterMode_CenterAligned3    TIM ä¸­å¤®å¯¹é½æ¨¡å¼ 3 è®¡æ•°æ¨¡å¼  */
-        temp.TIM_ClockDivision = TIM_CKD_DIV1; /* é‡‡æ ·åˆ†é¢‘ï¼Œè¾“å…¥æ•èŽ·æ—¶ä½¿ç”¨ã€‚ */
+        temp.TIM_Prescaler = 72-1;  /* Ô¤·ÖÆµ¼Ä´æÆ÷£¬[0, 65535]¡£²»¹ÜÊÇÄÇ¸ötim£¬APB¹ýÀ´µÄÆµÂÊ¶¼ÊÇ72MHz¡£ÕâÀï72-1ÉèÖÃµÄÊÇ1MHz¡£
+                                       72Mhz/(TIM_Prescaler+1) = CK_CNT£¨¼ÆÊýÆ÷µÄÊ±ÖÓÆµÂÊ£©£¬TIM_Prescaler = 72MHz/CK_CNT - 1 */
+        temp.TIM_Period = 100-1;     /* ×Ô¶¯×°ÔØ¼Ä´æÆ÷£¬[0, 65535]¡£ÕâÀï100-1ÉèÖÃµÄÊÇ100¸ö¼ÆÊýÆ÷ÖÜÆÚ×÷ÎªÒç³öÖÜÆÚ¡£
+                                        ÉÏÃæÔ¤·ÖÆµÉèÖÃºÃ¼ÆÊýÆ÷ÖÜÆÚºó(1/CK_CNT)£¬Õâ¸öÖÜÆÚµÄ(TIM_Period+1)±¶¾ÍÊÇ¼ÆÊýÆ÷µÄÒç³öÖÜÆÚ¡£*/
+        //½áºÏÉÏÃæÁ½¸ö£¬ÓÐÒ»¸öÒç³öÖÜÆÚ¹«Ê½£ºÒç³öÖÜÆÚ = (TIM_Prescaler+1)*(TIM_Period+1)/72000000£¬µ¥Î»ÊÇs¡£
+        temp.TIM_CounterMode = TIM_CounterMode_Up; /* ¼ÆÊýÄ£Ê½£º
+                                                      TIM_CounterMode_Up                TIM ÏòÉÏ¼ÆÊýÄ£Ê½
+                                                      TIM_CounterMode_Down              TIM ÏòÏÂ¼ÆÊýÄ£Ê½
+                                                      TIM_CounterMode_CenterAligned1    TIM ÖÐÑë¶ÔÆëÄ£Ê½ 1 ¼ÆÊýÄ£Ê½
+                                                      TIM_CounterMode_CenterAligned2    TIM ÖÐÑë¶ÔÆëÄ£Ê½ 2 ¼ÆÊýÄ£Ê½
+                                                      TIM_CounterMode_CenterAligned3    TIM ÖÐÑë¶ÔÆëÄ£Ê½ 3 ¼ÆÊýÄ£Ê½  */
+        temp.TIM_ClockDivision = TIM_CKD_DIV1; /* ²ÉÑù·ÖÆµ£¬ÊäÈë²¶»ñÊ±Ê¹ÓÃ¡£ */
         TIM_TimeBaseInit(TIM3, &temp);
     }
-    /* åˆå§‹åŒ–æŒ‡å®šå®šæ—¶å™¨æŒ‡å®šé€šé“çš„è¾“å‡ºæ¯”è¾ƒå‚æ•° */
+    /* ³õÊ¼»¯Ö¸¶¨¶¨Ê±Æ÷Ö¸¶¨Í¨µÀµÄÊä³ö±È½Ï²ÎÊý */
     {
         TIM_OCInitTypeDef temp;
-        temp.TIM_OCMode = TIM_OCMode_PWM1;      //æ­¤æ¨¡å¼ä¼šåœ¨å ç©ºæ¯”ä¸º100%æ—¶æ— æ³•è¾“å‡ºå®Œå…¨çš„é«˜ç”µå¹³ï¼Œä¼šåœ¨æœ€åŽæœ‰ä¸€ä¸ªå‘¨æœŸçš„ä½Žç”µå¹³
-        temp.TIM_OutputState = TIM_OutputState_Enable;  //ä½¿èƒ½
-        temp.TIM_Pulse = 0;    //æ¯”è¾ƒå¯„å­˜å™¨çš„å€¼
-        temp.TIM_OCPolarity = TIM_OCPolarity_High;      //æœ‰æ•ˆç”µå¹³ä¸ºé«˜ç”µå¹³
+        temp.TIM_OCMode = TIM_OCMode_PWM1;      //´ËÄ£Ê½»áÔÚÕ¼¿Õ±ÈÎª100%Ê±ÎÞ·¨Êä³öÍêÈ«µÄ¸ßµçÆ½£¬»áÔÚ×îºóÓÐÒ»¸öÖÜÆÚµÄµÍµçÆ½
+        temp.TIM_OutputState = TIM_OutputState_Enable;  //Ê¹ÄÜ
+        temp.TIM_Pulse = 0;    //±È½Ï¼Ä´æÆ÷µÄÖµ
+        temp.TIM_OCPolarity = TIM_OCPolarity_High;      //ÓÐÐ§µçÆ½Îª¸ßµçÆ½
         TIM_OC1Init(TIM3, &temp);
     }
-    /* ä½¿èƒ½æŒ‡å®šå®šæ—¶å™¨æŒ‡å®šé€šé“çš„é¢„è£…è½½å¯„å­˜å™¨ */
+    /* Ê¹ÄÜÖ¸¶¨¶¨Ê±Æ÷Ö¸¶¨Í¨µÀµÄÔ¤×°ÔØ¼Ä´æÆ÷ */
     TIM_OC1PreloadConfig(TIM3, TIM_OCPreload_Enable);
-    /* ä½¿èƒ½æŒ‡å®šå®šæ—¶å™¨çš„è‡ªåŠ¨é‡è£…è½½çš„é¢„è£…è½½å¯„å­˜å™¨å…è®¸ä½ */
-    TIM_ARRPreloadConfig(TIM3, DISABLE); //ENABLE-æ¯”è¾ƒå¯„å­˜å™¨å€¼ä¿®æ”¹åŽç«‹å³ç”Ÿæ•ˆï¼›DISABLE-æ¯”è¾ƒå¯„å­˜å™¨å€¼ä¿®æ”¹åŽä¸‹ä¸ªå‘¨æœŸç”Ÿæ•ˆ
-    /* ä½¿èƒ½å®šæ—¶å™¨ */
+    /* Ê¹ÄÜÖ¸¶¨¶¨Ê±Æ÷µÄ×Ô¶¯ÖØ×°ÔØµÄÔ¤×°ÔØ¼Ä´æÆ÷ÔÊÐíÎ» */
+    TIM_ARRPreloadConfig(TIM3, DISABLE); //ENABLE-±È½Ï¼Ä´æÆ÷ÖµÐÞ¸ÄºóÁ¢¼´ÉúÐ§£»DISABLE-±È½Ï¼Ä´æÆ÷ÖµÐÞ¸ÄºóÏÂ¸öÖÜÆÚÉúÐ§
+    /* Ê¹ÄÜ¶¨Ê±Æ÷ */
     TIM_Cmd(TIM3, ENABLE);
 }
-void motor_setzkb(int zkb)      //è®¾ç½®å ç©ºæ¯”ï¼ŒèŒƒå›´æ˜¯0~100
+void motor_setzkb(int zkb)      //ÉèÖÃÕ¼¿Õ±È£¬·¶Î§ÊÇ0~100
 {
     if(zkb>100)
         zkb = 100;

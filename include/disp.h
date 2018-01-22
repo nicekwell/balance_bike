@@ -1,18 +1,18 @@
 #ifndef __DISP_H__
 #define __DISP_H__
-/* åœ¨ä¸»å‡½æ•°å·²ç»å®Œæˆä¸²å£åˆå§‹åŒ–ï¼Œå¹¶ä¸”é‡å®šå‘printfå‡½æ•°ä¹‹åï¼Œ
-   è¿™é‡Œæä¾›ä¸€äº›åˆ—å‡½æ•°ç”¨äºæ“ä½œç»ˆç«¯å·¥å…·æ˜¾ç¤ºï¼Œå¯åœ¨ç»ˆç«¯å·¥å…·é‡Œæ„å»ºç•Œé¢ã€‚ */
+/* ÔÚÖ÷º¯ÊıÒÑ¾­Íê³É´®¿Ú³õÊ¼»¯£¬²¢ÇÒÖØ¶¨Ïòprintfº¯ÊıÖ®ºó£¬
+   ÕâÀïÌá¹©Ò»Ğ©ÁĞº¯ÊıÓÃÓÚ²Ù×÷ÖÕ¶Ë¹¤¾ßÏÔÊ¾£¬¿ÉÔÚÖÕ¶Ë¹¤¾ßÀï¹¹½¨½çÃæ¡£ */
 #include <stm32f10x_lib.h>
 
 void disp_clean(void);
-void disp_clean_line(void);      //æ¸…é™¤å½“å‰è¡Œï¼Œå¹¶å¤ä½å…‰æ ‡åˆ°è¡Œé¦–
-void disp_cursor_reset(void);        //å¤ä½å…‰æ ‡ä½ç½®ï¼Œå›åˆ°å·¦ä¸Šè§’ï¼ˆ1è¡Œ1åˆ—ï¼‰
-void disp_gotoxy(int x, int y);  //è·³è½¬åˆ°yè¡Œxåˆ—ï¼Œxå’Œyéƒ½æ˜¯ä»1å¼€å§‹æ•°ã€‚
-void disp_cursor_up(int y);      //ä¸Šç§»xè¡Œ
-void disp_cursor_down(int y);    //ä¸‹ç§»yè¡Œ
-void disp_cursor_left(int x);    //å·¦ç§»xåˆ—
-void disp_cursor_right(int x);   //å³ç§»xåˆ—
-void disp_cursor_hide(void);     //éšè—å…‰æ ‡ï¼Œåœ¨secureCRTä¸­æµ‹è¯•æ— æ•ˆã€‚
-void disp_cursor_show(void);     //æ˜¾ç¤ºå…‰æ ‡ï¼Œåœ¨secureCRTä¸­æµ‹è¯•æ— æ•ˆã€‚
+void disp_clean_line(void);      //Çå³ıµ±Ç°ĞĞ£¬²¢¸´Î»¹â±êµ½ĞĞÊ×
+void disp_cursor_reset(void);        //¸´Î»¹â±êÎ»ÖÃ£¬»Øµ½×óÉÏ½Ç£¨1ĞĞ1ÁĞ£©
+void disp_gotoxy(int x, int y);  //Ìø×ªµ½yĞĞxÁĞ£¬xºÍy¶¼ÊÇ´Ó1¿ªÊ¼Êı¡£
+void disp_cursor_up(int y);      //ÉÏÒÆxĞĞ
+void disp_cursor_down(int y);    //ÏÂÒÆyĞĞ
+void disp_cursor_left(int x);    //×óÒÆxÁĞ
+void disp_cursor_right(int x);   //ÓÒÒÆxÁĞ
+void disp_cursor_hide(void);     //Òş²Ø¹â±ê£¬ÔÚsecureCRTÖĞ²âÊÔÎŞĞ§¡£
+void disp_cursor_show(void);     //ÏÔÊ¾¹â±ê£¬ÔÚsecureCRTÖĞ²âÊÔÎŞĞ§¡£
 
 #endif

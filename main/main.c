@@ -9,8 +9,8 @@
 #include "balance.c"
 #include "control.c"
 
-int flag_disp=0;        //å®šæ—¶å™¨é€šè¿‡æ­¤å˜é‡é€šçŸ¥ä¸»å¾ªç¯åˆ·æ–°æ˜¾ç¤ºï¼Œ1-åˆ·æ–°
-int disp_type = 0;      //0-ç”µè„‘ä¸Šæ˜¾ç¤ºç•Œé¢ï¼Œ1-æ‰‹æŸ„æ˜¾ç¤ºç•Œé¢
+int flag_disp=0;        //¶¨Ê±Æ÷Í¨¹ı´Ë±äÁ¿Í¨ÖªÖ÷Ñ­»·Ë¢ĞÂÏÔÊ¾£¬1-Ë¢ĞÂ
+int disp_type = 0;      //0-µçÄÔÉÏÏÔÊ¾½çÃæ£¬1-ÊÖ±úÏÔÊ¾½çÃæ
 
 int fputc(int ch, FILE *f)
 {
@@ -19,32 +19,32 @@ int fputc(int ch, FILE *f)
     return (ch);
 }
 
-void delay_init() //ç”¨ç³»ç»Ÿå®šæ—¶å™¨æŸ¥è¯¢æ–¹å¼å»¶æ—¶
+void delay_init() //ÓÃÏµÍ³¶¨Ê±Æ÷²éÑ¯·½Ê½ÑÓÊ±
 {
-    SysTick_CLKSourceConfig(SysTick_CLKSource_HCLK_Div8); //è®¾ç½®æˆAHBçš„8åˆ†é¢‘ï¼Œä¹Ÿå°±æ˜¯9MHz
+    SysTick_CLKSourceConfig(SysTick_CLKSource_HCLK_Div8); //ÉèÖÃ³ÉAHBµÄ8·ÖÆµ£¬Ò²¾ÍÊÇ9MHz
     SysTick_ITConfig(DISABLE);
 }
-void udelay(u32 n) //å»¶æ—¶usï¼Œè¾“å…¥èŒƒå›´ 1~1864135
+void udelay(u32 n) //ÑÓÊ±us£¬ÊäÈë·¶Î§ 1~1864135
 {
-    //ç”±äºSysTickæ—¶é’Ÿè®¾ç½®ä¸º9MHzï¼Œæ‰€ä»¥å»¶æ—¶1uséœ€è¦è®¾ç½®çš„å¯„å­˜å™¨æ˜¯ 9
+    //ÓÉÓÚSysTickÊ±ÖÓÉèÖÃÎª9MHz£¬ËùÒÔÑÓÊ±1usĞèÒªÉèÖÃµÄ¼Ä´æÆ÷ÊÇ 9
     u32 reg;
     reg = 9*n;
-    SysTick_CounterCmd(SysTick_Counter_Clear); //æ¸…ç©ºè®¡æ•°å™¨
-    SysTick_SetReload(reg); //è®¾ç½®å¯„å­˜å™¨
-    SysTick_CounterCmd(SysTick_Counter_Enable); //å¼€å¯å€’è®¡æ•°
-    while(SysTick_GetFlagStatus(SysTick_FLAG_COUNT) == RESET); //ç­‰å¾…è®¡æ—¶ç»“æŸ
-    SysTick_CounterCmd(SysTick_Counter_Disable); //åœæ­¢è®¡æ—¶å™¨
+    SysTick_CounterCmd(SysTick_Counter_Clear); //Çå¿Õ¼ÆÊıÆ÷
+    SysTick_SetReload(reg); //ÉèÖÃ¼Ä´æÆ÷
+    SysTick_CounterCmd(SysTick_Counter_Enable); //¿ªÆôµ¹¼ÆÊı
+    while(SysTick_GetFlagStatus(SysTick_FLAG_COUNT) == RESET); //µÈ´ı¼ÆÊ±½áÊø
+    SysTick_CounterCmd(SysTick_Counter_Disable); //Í£Ö¹¼ÆÊ±Æ÷
 }
-void mdelay(u16 n) //å»¶æ—¶msï¼Œè¾“å…¥èŒƒå›´ 1~1864
+void mdelay(u16 n) //ÑÓÊ±ms£¬ÊäÈë·¶Î§ 1~1864
 {
-    //ç”±äºSysTickæ—¶é’Ÿè®¾ç½®ä¸º9MHzï¼Œæ‰€ä»¥å»¶æ—¶1mséœ€è¦è®¾ç½®çš„å¯„å­˜å™¨æ˜¯ 9000
+    //ÓÉÓÚSysTickÊ±ÖÓÉèÖÃÎª9MHz£¬ËùÒÔÑÓÊ±1msĞèÒªÉèÖÃµÄ¼Ä´æÆ÷ÊÇ 9000
     u32 reg;
     reg = 9000*n;
-    SysTick_CounterCmd(SysTick_Counter_Clear); //æ¸…ç©ºè®¡æ•°å™¨
-    SysTick_SetReload(reg); //è®¾ç½®å¯„å­˜å™¨
-    SysTick_CounterCmd(SysTick_Counter_Enable); //å¼€å¯å€’è®¡æ•°
-    while(SysTick_GetFlagStatus(SysTick_FLAG_COUNT) == RESET); //ç­‰å¾…è®¡æ—¶ç»“æŸ
-    SysTick_CounterCmd(SysTick_Counter_Disable); //åœæ­¢è®¡æ—¶å™¨
+    SysTick_CounterCmd(SysTick_Counter_Clear); //Çå¿Õ¼ÆÊıÆ÷
+    SysTick_SetReload(reg); //ÉèÖÃ¼Ä´æÆ÷
+    SysTick_CounterCmd(SysTick_Counter_Enable); //¿ªÆôµ¹¼ÆÊı
+    while(SysTick_GetFlagStatus(SysTick_FLAG_COUNT) == RESET); //µÈ´ı¼ÆÊ±½áÊø
+    SysTick_CounterCmd(SysTick_Counter_Disable); //Í£Ö¹¼ÆÊ±Æ÷
 }
 int test_pin = 0;
 void test_pin_init()
@@ -87,63 +87,63 @@ void turn_test_pin()
 
 void RCC_init()
 {
-    ErrorStatus HSEStartUpStatus;    //ä½œä¸ºå­˜å‚¨HSEåˆå§‹åŒ–çŠ¶æ€çš„ä¸´æ—¶å˜é‡
-    RCC_DeInit();    //å¤ä½
-    RCC_HSEConfig(RCC_HSE_ON);    //å¼€å¯å¤–éƒ¨é«˜é€Ÿæ™¶æŒ¯HSE
-    HSEStartUpStatus = RCC_WaitForHSEStartUp();    //ç­‰å¾…HSEå¯åŠ¨okæˆ–å¤±è´¥
-    if(HSEStartUpStatus == SUCCESS)    //å¯åŠ¨ok
+    ErrorStatus HSEStartUpStatus;    //×÷Îª´æ´¢HSE³õÊ¼»¯×´Ì¬µÄÁÙÊ±±äÁ¿
+    RCC_DeInit();    //¸´Î»
+    RCC_HSEConfig(RCC_HSE_ON);    //¿ªÆôÍâ²¿¸ßËÙ¾§ÕñHSE
+    HSEStartUpStatus = RCC_WaitForHSEStartUp();    //µÈ´ıHSEÆô¶¯ok»òÊ§°Ü
+    if(HSEStartUpStatus == SUCCESS)    //Æô¶¯ok
     {
         //PLL
-        RCC_PLLConfig(RCC_PLLSource_HSE_Div1, RCC_PLLMul_9);    //è®¾ç½®PLLæ—¶é’Ÿè¾“å…¥ä¸ºHSE/1ï¼Œ9å€é¢‘ã€‚ç”±äºHSEæ˜¯8MHzï¼Œæ‰€ä»¥PLLè¾“å‡ºä¸º72MHz
-        RCC_PLLCmd(ENABLE);        //ä½¿èƒ½PLL
-        while(RCC_GetFlagStatus(RCC_FLAG_PLLRDY) == RESET);    //ç­‰å¾…PLLè¾“å‡ºç¨³å®š
+        RCC_PLLConfig(RCC_PLLSource_HSE_Div1, RCC_PLLMul_9);    //ÉèÖÃPLLÊ±ÖÓÊäÈëÎªHSE/1£¬9±¶Æµ¡£ÓÉÓÚHSEÊÇ8MHz£¬ËùÒÔPLLÊä³öÎª72MHz
+        RCC_PLLCmd(ENABLE);        //Ê¹ÄÜPLL
+        while(RCC_GetFlagStatus(RCC_FLAG_PLLRDY) == RESET);    //µÈ´ıPLLÊä³öÎÈ¶¨
      
-        //Flashï¼Œæ³¨æ„ï¼ï¼åœ¨SYSCLKåˆå§‹åŒ–ä¹‹å‰ä¸€å®šè¦è®¾ç½®flashå»¶æ—¶å‘¨æœŸå’Œé¢„å–æŒ‡ä»¤ç¼“å­˜
-        FLASH_SetLatency(FLASH_Latency_2);    //è®¾ç½®å»¶æ—¶å‘¨æœŸ
-        /*FLASHæ—¶åºå»¶è¿Ÿå‡ ä¸ªå‘¨æœŸï¼Œç­‰å¾…æ€»çº¿åŒæ­¥æ“ä½œã€‚
-          æ¨èæŒ‰ç…§å•ç‰‡æœºç³»ç»Ÿè¿è¡Œé¢‘ç‡ï¼Œâ€”MHzæ—¶ï¼Œå–Latency=0ï¼›
-          24â€”MHzæ—¶ï¼Œå–Latency=1ï¼›
-          48~72MHzæ—¶ï¼Œå–Latency=2*/
-        FLASH_PrefetchBufferCmd(FLASH_PrefetchBuffer_Enable);    //é¢„å–æŒ‡ç¼“å­˜ä½¿èƒ½
+        //Flash£¬×¢Òâ£¡£¡ÔÚSYSCLK³õÊ¼»¯Ö®Ç°Ò»¶¨ÒªÉèÖÃflashÑÓÊ±ÖÜÆÚºÍÔ¤È¡Ö¸Áî»º´æ
+        FLASH_SetLatency(FLASH_Latency_2);    //ÉèÖÃÑÓÊ±ÖÜÆÚ
+        /*FLASHÊ±ĞòÑÓ³Ù¼¸¸öÖÜÆÚ£¬µÈ´ı×ÜÏßÍ¬²½²Ù×÷¡£
+          ÍÆ¼ö°´ÕÕµ¥Æ¬»úÏµÍ³ÔËĞĞÆµÂÊ£¬¡ªMHzÊ±£¬È¡Latency=0£»
+          24¡ªMHzÊ±£¬È¡Latency=1£»
+          48~72MHzÊ±£¬È¡Latency=2*/
+        FLASH_PrefetchBufferCmd(FLASH_PrefetchBuffer_Enable);    //Ô¤È¡Ö¸»º´æÊ¹ÄÜ
      
         //SYSCLK
-        RCC_SYSCLKConfig(RCC_SYSCLKSource_PLLCLK);    //é€‰æ‹©PLLæ—¶é’Ÿä½œä¸ºSYSCLKæ—¶é’Ÿæº
-        while(RCC_GetSYSCLKSource() != 0x08);        //ç­‰å¾…PLLæ—¶é’Ÿæˆä¸ºSYSCLKæ—¶é’Ÿæº
+        RCC_SYSCLKConfig(RCC_SYSCLKSource_PLLCLK);    //Ñ¡ÔñPLLÊ±ÖÓ×÷ÎªSYSCLKÊ±ÖÓÔ´
+        while(RCC_GetSYSCLKSource() != 0x08);        //µÈ´ıPLLÊ±ÖÓ³ÉÎªSYSCLKÊ±ÖÓÔ´
         //AHB
-        RCC_HCLKConfig(RCC_SYSCLK_Div1);    //è®¾ç½®AHBçš„æ—¶é’Ÿæºä¸ºSYSCLK 1åˆ†é¢‘ï¼Œä¹Ÿå°±æ˜¯72MHz
-        RCC_PCLK1Config(RCC_HCLK_Div2);        //è®¾ç½®APB1ä¸ºHCLK 2åˆ†é¢‘ï¼Œä¹Ÿå°±æ˜¯36MHz
-        RCC_PCLK2Config(RCC_HCLK_Div1);        //è®¾ç½®APB2ä¸ºHCLK 1åˆ†é¢‘ï¼Œä¹Ÿå°±æ˜¯72MHz
+        RCC_HCLKConfig(RCC_SYSCLK_Div1);    //ÉèÖÃAHBµÄÊ±ÖÓÔ´ÎªSYSCLK 1·ÖÆµ£¬Ò²¾ÍÊÇ72MHz
+        RCC_PCLK1Config(RCC_HCLK_Div2);        //ÉèÖÃAPB1ÎªHCLK 2·ÖÆµ£¬Ò²¾ÍÊÇ36MHz
+        RCC_PCLK2Config(RCC_HCLK_Div1);        //ÉèÖÃAPB2ÎªHCLK 1·ÖÆµ£¬Ò²¾ÍÊÇ72MHz
     }
 }
 
 void timer2_init()
 {
-    /* ä½¿èƒ½å®šæ—¶å™¨æ—¶é’Ÿæ¨¡å—ã€‚
-       é«˜çº§å®šæ—¶å™¨TIM1å’ŒTIM8æŒ‚åœ¨é«˜é€Ÿæ—¶é’Ÿçº¿APB2ä¸Šï¼Œé€šç”¨å®šæ—¶å™¨TIM2~TIM7æŒ‚åœ¨ä½é€Ÿæ—¶é’Ÿçº¿APB1ä¸Šã€‚
-       è™½ç„¶ä¸åŒçš„å®šæ—¶å™¨å¯èƒ½æŒ‚åœ¨ä¸åŒçš„APBæ€»çº¿ä¸Šï¼Œä½†åœ¨é€šå¸¸çš„APBæ–¹æ¡ˆä¸­ï¼Œä¼ åˆ°å®šæ—¶å™¨çš„æ—¶é’Ÿéƒ½æ˜¯72MHzã€‚ï¼ˆè¯¦ç»†åŸå› è§ç¬”è®°ï¼‰ */
+    /* Ê¹ÄÜ¶¨Ê±Æ÷Ê±ÖÓÄ£¿é¡£
+       ¸ß¼¶¶¨Ê±Æ÷TIM1ºÍTIM8¹ÒÔÚ¸ßËÙÊ±ÖÓÏßAPB2ÉÏ£¬Í¨ÓÃ¶¨Ê±Æ÷TIM2~TIM7¹ÒÔÚµÍËÙÊ±ÖÓÏßAPB1ÉÏ¡£
+       ËäÈ»²»Í¬µÄ¶¨Ê±Æ÷¿ÉÄÜ¹ÒÔÚ²»Í¬µÄAPB×ÜÏßÉÏ£¬µ«ÔÚÍ¨³£µÄAPB·½°¸ÖĞ£¬´«µ½¶¨Ê±Æ÷µÄÊ±ÖÓ¶¼ÊÇ72MHz¡££¨ÏêÏ¸Ô­Òò¼û±Ê¼Ç£© */
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2, ENABLE);
-    /* é…ç½®å®šæ—¶å™¨æ—¶é’Ÿæº */
-    // å®šæ—¶å™¨é»˜è®¤æ—¶é’Ÿæ˜¯é€šè¿‡APBè¿‡æ¥çš„ï¼Œæ‰€ä»¥è¿™é‡Œä¸éœ€è¦é…ç½®
-    /* é…ç½®å®šæ—¶å™¨åŸºæœ¬è®¡æ•°å•å…ƒ */
+    /* ÅäÖÃ¶¨Ê±Æ÷Ê±ÖÓÔ´ */
+    // ¶¨Ê±Æ÷Ä¬ÈÏÊ±ÖÓÊÇÍ¨¹ıAPB¹ıÀ´µÄ£¬ËùÒÔÕâÀï²»ĞèÒªÅäÖÃ
+    /* ÅäÖÃ¶¨Ê±Æ÷»ù±¾¼ÆÊıµ¥Ôª */
     {
         TIM_TimeBaseInitTypeDef temp;
-        temp.TIM_Prescaler = 72-1;  /* é¢„åˆ†é¢‘å¯„å­˜å™¨ï¼Œ[0, 65535]ã€‚ä¸ç®¡æ˜¯é‚£ä¸ªtimï¼ŒAPBè¿‡æ¥çš„é¢‘ç‡éƒ½æ˜¯72MHzã€‚
-                                       72Mhz/(TIM_Prescaler+1) = CK_CNTï¼ˆè®¡æ•°å™¨çš„æ—¶é’Ÿé¢‘ç‡ï¼‰ï¼ŒTIM_Prescaler = 72MHz/CK_CNT - 1 */
-        temp.TIM_Period = 20000-1;     /* è‡ªåŠ¨è£…è½½å¯„å­˜å™¨ï¼Œ[0, 65535]ã€‚
-                                          ä¸Šé¢é¢„åˆ†é¢‘è®¾ç½®å¥½è®¡æ•°å™¨å‘¨æœŸå(1/CK_CNT)ï¼Œè¿™ä¸ªå‘¨æœŸçš„(TIM_Period+1)å€å°±æ˜¯è®¡æ•°å™¨çš„æº¢å‡ºå‘¨æœŸã€‚*/
-        //ç»“åˆä¸Šé¢ä¸¤ä¸ªï¼Œæœ‰ä¸€ä¸ªæº¢å‡ºå‘¨æœŸå…¬å¼ï¼šæº¢å‡ºå‘¨æœŸ = (TIM_Prescaler+1)*(TIM_Period+1)/72000000ï¼Œå•ä½æ˜¯sã€‚
-        temp.TIM_CounterMode = TIM_CounterMode_Up; /* è®¡æ•°æ¨¡å¼ï¼š
-                                                      TIM_CounterMode_Up                TIM å‘ä¸Šè®¡æ•°æ¨¡å¼
-                                                      TIM_CounterMode_Down              TIM å‘ä¸‹è®¡æ•°æ¨¡å¼
-                                                      TIM_CounterMode_CenterAligned1    TIM ä¸­å¤®å¯¹é½æ¨¡å¼ 1 è®¡æ•°æ¨¡å¼
-                                                      TIM_CounterMode_CenterAligned2    TIM ä¸­å¤®å¯¹é½æ¨¡å¼ 2 è®¡æ•°æ¨¡å¼
-                                                      TIM_CounterMode_CenterAligned3    TIM ä¸­å¤®å¯¹é½æ¨¡å¼ 3 è®¡æ•°æ¨¡å¼  */
-        temp.TIM_ClockDivision = TIM_CKD_DIV1; /* é‡‡æ ·åˆ†é¢‘ï¼Œè¾“å…¥æ•è·æ—¶ä½¿ç”¨ã€‚ */
+        temp.TIM_Prescaler = 72-1;  /* Ô¤·ÖÆµ¼Ä´æÆ÷£¬[0, 65535]¡£²»¹ÜÊÇÄÇ¸ötim£¬APB¹ıÀ´µÄÆµÂÊ¶¼ÊÇ72MHz¡£
+                                       72Mhz/(TIM_Prescaler+1) = CK_CNT£¨¼ÆÊıÆ÷µÄÊ±ÖÓÆµÂÊ£©£¬TIM_Prescaler = 72MHz/CK_CNT - 1 */
+        temp.TIM_Period = 20000-1;     /* ×Ô¶¯×°ÔØ¼Ä´æÆ÷£¬[0, 65535]¡£
+                                          ÉÏÃæÔ¤·ÖÆµÉèÖÃºÃ¼ÆÊıÆ÷ÖÜÆÚºó(1/CK_CNT)£¬Õâ¸öÖÜÆÚµÄ(TIM_Period+1)±¶¾ÍÊÇ¼ÆÊıÆ÷µÄÒç³öÖÜÆÚ¡£*/
+        //½áºÏÉÏÃæÁ½¸ö£¬ÓĞÒ»¸öÒç³öÖÜÆÚ¹«Ê½£ºÒç³öÖÜÆÚ = (TIM_Prescaler+1)*(TIM_Period+1)/72000000£¬µ¥Î»ÊÇs¡£
+        temp.TIM_CounterMode = TIM_CounterMode_Up; /* ¼ÆÊıÄ£Ê½£º
+                                                      TIM_CounterMode_Up                TIM ÏòÉÏ¼ÆÊıÄ£Ê½
+                                                      TIM_CounterMode_Down              TIM ÏòÏÂ¼ÆÊıÄ£Ê½
+                                                      TIM_CounterMode_CenterAligned1    TIM ÖĞÑë¶ÔÆëÄ£Ê½ 1 ¼ÆÊıÄ£Ê½
+                                                      TIM_CounterMode_CenterAligned2    TIM ÖĞÑë¶ÔÆëÄ£Ê½ 2 ¼ÆÊıÄ£Ê½
+                                                      TIM_CounterMode_CenterAligned3    TIM ÖĞÑë¶ÔÆëÄ£Ê½ 3 ¼ÆÊıÄ£Ê½  */
+        temp.TIM_ClockDivision = TIM_CKD_DIV1; /* ²ÉÑù·ÖÆµ£¬ÊäÈë²¶»ñÊ±Ê¹ÓÃ¡£ */
         TIM_TimeBaseInit(TIM2, &temp);
     }
-    /* é…ç½®å®šæ—¶å™¨ä¸­æ–­ï¼Œæ‰“å¼€æº¢å‡ºä¸­æ–­ */
+    /* ÅäÖÃ¶¨Ê±Æ÷ÖĞ¶Ï£¬´ò¿ªÒç³öÖĞ¶Ï */
     TIM_ITConfig(TIM2, TIM_IT_Update, ENABLE);
-    /* é…ç½®nvicï¼Œå‰ææ˜¯å·²ç»åœ¨ç¨‹åºæœ€å¼€å§‹æ‰§è¡Œäº† NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2) è®¾ç½®äº†åˆ†ç»„ */
+    /* ÅäÖÃnvic£¬Ç°ÌáÊÇÒÑ¾­ÔÚ³ÌĞò×î¿ªÊ¼Ö´ĞĞÁË NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2) ÉèÖÃÁË·Ö×é */
     {
         NVIC_InitTypeDef temp;
         temp.NVIC_IRQChannel = TIM2_IRQChannel;
@@ -152,13 +152,13 @@ void timer2_init()
         temp.NVIC_IRQChannelCmd = ENABLE;
         NVIC_Init(&temp);
     }
-    /* ä½¿èƒ½å®šæ—¶å™¨ */
+    /* Ê¹ÄÜ¶¨Ê±Æ÷ */
     TIM_Cmd(TIM2, ENABLE);
 }
-void TIM2_IRQHandler(void)      //20msä¸€æ¬¡ä¸­æ–­
+void TIM2_IRQHandler(void)      //20msÒ»´ÎÖĞ¶Ï
 {
     set_test_pin(1);
-    if(TIM_GetITStatus(TIM2, TIM_IT_Update) == SET)     //å‘ç”Ÿçš„æ˜¯æº¢å‡ºäº‹ä»¶
+    if(TIM_GetITStatus(TIM2, TIM_IT_Update) == SET)     //·¢ÉúµÄÊÇÒç³öÊÂ¼ş
     {
         static int count = 0;
         count ++;
@@ -169,8 +169,8 @@ void TIM2_IRQHandler(void)      //20msä¸€æ¬¡ä¸­æ–­
         }
         balance_tick();
         
-        TIM_ClearITPendingBit(TIM2, TIM_FLAG_Update);  // ç»“æŸåä¸€å®šè¦æ¸…é™¤æ ‡å¿—ä½
-        //å“ªæ€•ä¸­æ–­é‡Œä»€ä¹ˆä¹Ÿä¸åšï¼Œåªè¦timçš„ä¸­æ–­æ‰“å¼€äº†ï¼Œåœ¨ä¸­æ–­å¤„ç†å‡½æ•°ä¸­ä¸€å®šè¦è°ƒç”¨è¿™ä¸€ä¸ªå‡½æ•°æŠŠæ ‡å¿—ä½æ¸…é™¤ï¼Œå¦åˆ™å¯èƒ½ä¼šå½±å“åˆ°å…¶ä»–æ¨¡å—éƒ½ä¸èƒ½æ­£å¸¸å·¥ä½œã€‚
+        TIM_ClearITPendingBit(TIM2, TIM_FLAG_Update);  // ½áÊøºóÒ»¶¨ÒªÇå³ı±êÖ¾Î»
+        //ÄÄÅÂÖĞ¶ÏÀïÊ²Ã´Ò²²»×ö£¬Ö»ÒªtimµÄÖĞ¶Ï´ò¿ªÁË£¬ÔÚÖĞ¶Ï´¦Àíº¯ÊıÖĞÒ»¶¨Òªµ÷ÓÃÕâÒ»¸öº¯Êı°Ñ±êÖ¾Î»Çå³ı£¬·ñÔò¿ÉÄÜ»áÓ°Ïìµ½ÆäËûÄ£¿é¶¼²»ÄÜÕı³£¹¤×÷¡£
     }
     set_test_pin(0);
 }
@@ -196,7 +196,7 @@ int main(int argc, char *argv[])
         if(flag_disp)
         {
             flag_disp = 0;
-            if(disp_type == 0)  //ç”µè„‘ä¸Šæ˜¾ç¤º
+            if(disp_type == 0)  //µçÄÔÉÏÏÔÊ¾
             {
                 disp_gotoxy(1,1);
                 disp_clean_line();
@@ -214,7 +214,7 @@ int main(int argc, char *argv[])
                 printf("balance: balance_angle=%.3f \tkp=%.3f \tkd=%.3f \td_angle=%.3f \tax=%.3f \tangle=%.3f \n\r", balance_data.balance_angle, balance_data.kp, balance_data.kd, balance_data.d_angle, balance_data.ax, balance_data.angle);
 #endif
             }
-            else if(disp_type == 1)     //æ‰‹æŸ„ä¸Šæ˜¾ç¤º
+            else if(disp_type == 1)     //ÊÖ±úÉÏÏÔÊ¾
             {
 #if BALANCE_TYPE == 1
                 disp_gotoxy(8, 1);
